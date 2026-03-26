@@ -44,14 +44,17 @@ namespace KP_SnakeProjekt
             InitializeComponent();
             SnakeHead = new Snake(15, 15, 0, 0, 0, 0, false);
             snakeBody.Add(SnakeHead);
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                snakeBody.Add(new Snake(SnakeHead.PosX, SnakeHead.PosY, SnakeHead.LastPosX, SnakeHead.LastPosY, 0, 0, true));
+                int tailPosX = SnakeHead.PosX;
+                int tailPosY = SnakeHead.PosY - i; 
+                int tailLastPosY = tailPosY - 1;  
+                snakeBody.Add(new Snake(tailPosX, tailPosY, tailPosX, tailLastPosY, 0, 0, true));
             }
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
             simTimer = new DispatcherTimer();
             visualX = SnakeHead.PosX;
-            visualY = SnakeHead.PosY;
+            visualY = SnakeHead.PosY;   
             MapController.FillUpGameSpace(this);
             RefreshSnakePosition();
             simTimer = new DispatcherTimer();
@@ -84,7 +87,13 @@ namespace KP_SnakeProjekt
                     SnakeHead.PosX--;
                     break;
             }
-
+            foreach (var bodyPart in snakeBody.Skip(1))
+            {
+                bodyPart.LastPosX = bodyPart.PosX;
+                bodyPart.LastPosY = bodyPart.PosY;
+                bodyPart.PosX = SnakeHead.LastPosX;
+                bodyPart.PosY = SnakeHead.LastPosY;
+            }
             if (SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
             {
                 simTimer.Stop();
