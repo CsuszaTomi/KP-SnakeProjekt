@@ -5,13 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KP_SnakeProjekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Snake Projekt" Height="600" Width="1000"
+        Background="#121212" WindowStartupLocation="CenterScreen">
+
     <Grid>
-        <Border BorderThickness="10,10,10,7">
-            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#1a1a1c" x:Name="kamera">
-                <Canvas x:Name="jatekter" Width="4000" Height="4000">
-                </Canvas>
-            </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" 
+                Background="#252526" 
+                BorderBrush="#3e3e42" 
+                BorderThickness="0,0,0,2" 
+                Padding="20,10">
+
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <StackPanel Margin="0,0,30,0">
+                        <TextBlock Text="POZÍCIÓ" Foreground="#aaaaaa" FontSize="10" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtPos" Text="X: 0 | Y: 0" Foreground="#4da6ff" FontSize="18" FontFamily="Consolas"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,30,0">
+                        <TextBlock Text="ELTELT IDŐ" Foreground="#aaaaaa" FontSize="10" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtTime" Text="00:00" Foreground="White" FontSize="18" FontFamily="Consolas"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="MEGEVETT ALMÁK" Foreground="#aaaaaa" FontSize="10" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🍎" FontSize="18" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtApples" Text="0 db" Foreground="#ff4d4d" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Border>
+
+        <ScrollViewer Grid.Row="1" 
+                      HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="Hidden" 
+                      Background="#1a1a1c" 
+                      x:Name="kamera">
+            <Canvas x:Name="jatekter" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+            </Canvas>
+        </ScrollViewer>
+
     </Grid>
 </Window>
