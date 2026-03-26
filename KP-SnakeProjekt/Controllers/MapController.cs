@@ -58,7 +58,6 @@ namespace PSZK_MarsRoverProject.Controllers
                 SnapsToDevicePixels = true,
             };
             mw.jatekter.Children.Clear();
-            Canvas.SetLeft(hattekKep, 0);
             Canvas.SetTop(hattekKep, 0);
             Canvas.SetLeft(hattekKep, 0);
             Canvas.SetTop(hattekKep, 0);
