@@ -55,7 +55,7 @@ namespace PSZK_MarsRoverProject.Controllers
                 Width = pixelWidth,
                 Height = pixelHeight,
                 Source = bmp,
-                SnapsToDevicePixels = true
+                SnapsToDevicePixels = true,
             };
             mw.jatekter.Children.Clear();
             Canvas.SetLeft(hattekKep, 0);
@@ -65,14 +65,14 @@ namespace PSZK_MarsRoverProject.Controllers
             Panel.SetZIndex(hattekKep, 0);
             mw.jatekter.Children.Add(hattekKep);
 
-            // Rover rajzolás
+            // snake rajzolás
             mw.SnakeHeadImage = new Image()
             {
                 Width = mw.tileSize,
                 Height = mw.tileSize,
                 Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-head.png")),
                 RenderTransformOrigin = new Point(0.5, 0.5),
-                RenderTransform = new RotateTransform(0)
+                RenderTransform = mw.rotateTransform
             };
             Panel.SetZIndex(mw.SnakeHeadImage, 10);
             mw.RefreshSnakePosition();
@@ -89,6 +89,39 @@ namespace PSZK_MarsRoverProject.Controllers
                 case 1: return mw.groundImage1;
                 default: return mw.groundImage1;
             }
+        }
+
+        public static void SpawnApples(int applescount, MainWindow mw)
+        {
+            for (int i = 0; i < applescount; i++)
+            {
+                int x = rnd.Next(0, mw.mapsize);
+                int y = rnd.Next(0, mw.mapsize);
+                if (mw.map[x, y] == ".")
+                {
+                    mw.map[x, y] = "A";
+                }
+            }
+            for (int i = 0; i < mw.mapsize; i++)
+            {
+                for (int j = 0; j < mw.mapsize; j++)
+                {
+                    if (mw.map[i, j] == "A")
+                    {
+                        Image almaImage = new Image()
+                        {
+                            Width = mw.tileSize,
+                            Height = mw.tileSize,
+                            Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-head.png"))
+                        };
+                        Panel.SetZIndex(almaImage, 5);
+                        Canvas.SetLeft(almaImage, j * mw.tileSize);
+                        Canvas.SetTop(almaImage, i * mw.tileSize);
+                        mw.jatekter.Children.Add(almaImage);
+                    }
+                }
+            }
+            mw.ApplesInMap = true;
         }
     }
 }
