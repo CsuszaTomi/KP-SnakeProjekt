@@ -11,14 +11,17 @@
 
   <ItemGroup>
     <None Remove="img\kep57.png" />
+    <None Remove="img\Skins\snake-head.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="img\Maps\" />
     <Folder Include="View\" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="img\kep57.png" />
+    <Resource Include="img\Skins\snake-head.png" />
   </ItemGroup>
 
 </Project>
