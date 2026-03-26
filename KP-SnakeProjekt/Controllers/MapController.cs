@@ -10,7 +10,7 @@ namespace PSZK_MarsRoverProject.Controllers
 {
     internal class MapController
     {
-        public static string[,] CsvReader(MainWindow mw)
+        public static string[,] MapMaker(MainWindow mw)
         {
             string[,] map = new string[mw.mapsize, mw.mapsize];
             for (int i = 0; i < mw.mapsize; i++)
@@ -29,6 +29,8 @@ namespace PSZK_MarsRoverProject.Controllers
             int cols = mw.map.GetLength(1);
             int pixelWidth = cols * mw.tileSize;
             int pixelHeight = rows * mw.tileSize;
+            mw.jatekter.Width = pixelWidth;
+            mw.jatekter.Height = pixelHeight;
 
             // Talaj kirajzolása egyetlen háttérképbe (DrawingVisual)
             DrawingVisual drawingVisual = new DrawingVisual();
@@ -55,6 +57,9 @@ namespace PSZK_MarsRoverProject.Controllers
                 Source = bmp,
                 SnapsToDevicePixels = true
             };
+            mw.jatekter.Children.Clear();
+            Canvas.SetLeft(hattekKep, 0);
+            Canvas.SetTop(hattekKep, 0);
             Canvas.SetLeft(hattekKep, 0);
             Canvas.SetTop(hattekKep, 0);
             Panel.SetZIndex(hattekKep, 0);
@@ -65,12 +70,12 @@ namespace PSZK_MarsRoverProject.Controllers
             {
                 Width = mw.tileSize,
                 Height = mw.tileSize,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Images/snakehead.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-head.png")),
                 RenderTransformOrigin = new Point(0.5, 0.5),
                 RenderTransform = new RotateTransform(0)
             };
             Panel.SetZIndex(mw.SnakeHeadImage, 10);
-            //mw.RefreshRoverPosition();
+            mw.RefreshSnakePosition();
             mw.jatekter.Children.Add(mw.SnakeHeadImage);
         }
 
