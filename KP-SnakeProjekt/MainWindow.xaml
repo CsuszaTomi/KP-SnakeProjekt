@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Border BorderThickness="10,10,10,7">
+            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#1a1a1c" x:Name="kamera">
+                <Canvas x:Name="jatekter" Width="4000" Height="4000">
+                </Canvas>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </Window>
