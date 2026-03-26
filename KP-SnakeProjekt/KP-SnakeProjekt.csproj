@@ -11,7 +11,12 @@
 
   <ItemGroup>
     <None Remove="img\kep57.png" />
+    <None Remove="img\Skins\purple-snakebody.png" />
+    <None Remove="img\Skins\purple-snakehead.png" />
+    <None Remove="img\Skins\purple-snaketail.png" />
+    <None Remove="img\Skins\snake-body.png" />
     <None Remove="img\Skins\snake-head.png" />
+    <None Remove="img\Skins\snake-tail.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +26,12 @@
 
   <ItemGroup>
     <Resource Include="img\kep57.png" />
+    <Resource Include="img\Skins\purple-snakebody.png" />
+    <Resource Include="img\Skins\purple-snakehead.png" />
+    <Resource Include="img\Skins\purple-snaketail.png" />
+    <Resource Include="img\Skins\snake-body.png" />
     <Resource Include="img\Skins\snake-head.png" />
+    <Resource Include="img\Skins\snake-tail.png" />
   </ItemGroup>
 
 </Project>
