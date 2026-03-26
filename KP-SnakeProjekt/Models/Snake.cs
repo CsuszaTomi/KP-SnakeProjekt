@@ -8,7 +8,7 @@ namespace KP_SnakeProjekt.Models
 {
     class Snake
     {
-        public Snake(int posX, int posY, int lastPosX, int lastPosY, int applesEaten = 0, int rotation = 0)
+        public Snake(int posX, int posY, int lastPosX, int lastPosY, int applesEaten = 0, int rotation = 0, bool following = false)
         {
             PosX = posX;
             PosY = posY;
@@ -16,6 +16,7 @@ namespace KP_SnakeProjekt.Models
             LastPosY = lastPosY;
             ApplesEaten = applesEaten;
             Rotation = rotation;
+            Following = following;
         }
         public Snake() { }
 
@@ -28,7 +29,9 @@ namespace KP_SnakeProjekt.Models
         public int ApplesEaten { get; set; }
 
         public int Rotation { get; set; }
-        
+
+        bool Following { get; set; }
+
         public string GetDirection()
         {
             return Rotation switch

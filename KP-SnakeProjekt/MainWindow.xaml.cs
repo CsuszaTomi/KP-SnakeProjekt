@@ -27,6 +27,7 @@ namespace KP_SnakeProjekt
         public BitmapImage groundImage1;
         public Image SnakeHeadImage;
         public DispatcherTimer simTimer;
+        public DispatcherTimer renderTimer;
         double visualX;
         double visualY;
         double stepX = 0;
@@ -41,7 +42,12 @@ namespace KP_SnakeProjekt
         {
             map = MapController.MapMaker(this);
             InitializeComponent();
-            SnakeHead = new Snake(0, 0, 0, 0, 0, 0);
+            SnakeHead = new Snake(15, 15, 0, 0, 0, 0, false);
+            snakeBody.Add(SnakeHead);
+            for (int i = 1; i < 5; i++)
+            {
+                snakeBody.Add(new Snake(SnakeHead.PosX, SnakeHead.PosY, SnakeHead.LastPosX, SnakeHead.LastPosY, 0, 0, true));
+            }
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
             simTimer = new DispatcherTimer();
             visualX = SnakeHead.PosX;
@@ -52,40 +58,50 @@ namespace KP_SnakeProjekt
             simTimer.Interval = TimeSpan.FromMilliseconds(500);
             simTimer.Tick += SimTimer_Tick; 
             simTimer.Start();
+            renderTimer = new DispatcherTimer();
+            renderTimer.Interval = TimeSpan.FromMilliseconds(13);
+            renderTimer.Tick += RenderTimer_Tick;
+            renderTimer.Start();
         }
 
         private void SimTimer_Tick(object sender, EventArgs e)
         {
             SnakeHead.LastPosX = SnakeHead.PosX;
             SnakeHead.LastPosY = SnakeHead.PosY;
-            if(SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
+
+            switch (SnakeHead.Rotation)
+            {
+                case 180:
+                    SnakeHead.PosY--;
+                    break;
+                case 0:
+                    SnakeHead.PosY++;
+                    break;
+                case 270:
+                    SnakeHead.PosX++;
+                    break;
+                case 90:
+                    SnakeHead.PosX--;
+                    break;
+            }
+
+            if (SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
             {
                 simTimer.Stop();
+                renderTimer.Stop();
                 MessageBox.Show("hékabéka");
                 return;
             }
-            switch (SnakeHead.Rotation)
-            {
-                case 180: 
-                    visualY--;
-                    SnakeHead.PosY--;
-                    break;
-                case 0: 
-                    visualY++;
-                    SnakeHead.PosY++;
-                    break; 
-                case 270: 
-                    visualX++;
-                    SnakeHead.PosX++;
-                    break; 
-                case 90: 
-                    visualX--; 
-                    SnakeHead.PosX--;
-                    break; 
-            }
             int almaszam = rnd.Next(1, maxalmaszam);
-            if(!ApplesInMap)
+            if (!ApplesInMap)
                 MapController.SpawnApples(almaszam, this);
+        }
+
+        private void RenderTimer_Tick(object sender, EventArgs e)
+        {
+            visualX += (SnakeHead.PosX - visualX) * 0.2;
+            visualY += (SnakeHead.PosY - visualY) * 0.2;
+
             ClampVisualPosition();
             RefreshSnakePosition();
         }
