@@ -11,7 +11,9 @@
 
   <ItemGroup>
     <None Remove="img\kep57.png" />
+    <None Remove="img\Skins\snake-body.png" />
     <None Remove="img\Skins\snake-head.png" />
+    <None Remove="img\Skins\snake-tail.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +23,9 @@
 
   <ItemGroup>
     <Resource Include="img\kep57.png" />
+    <Resource Include="img\Skins\snake-body.png" />
     <Resource Include="img\Skins\snake-head.png" />
+    <Resource Include="img\Skins\snake-tail.png" />
   </ItemGroup>
 
 </Project>
