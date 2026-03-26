@@ -31,38 +31,83 @@ namespace KP_SnakeProjekt
         double visualY;
         double stepX = 0;
         double stepY = 0;
-        Snake snake = new Snake();
+        Snake SnakeHead = new Snake();
+        List<Snake> snakeBody = new List<Snake>();
+        public RotateTransform rotateTransform = new RotateTransform(0);
+        Random rnd = new Random();
+        int maxalmaszam = 10;
+        public bool ApplesInMap = false;
         public MainWindow()
         {
             map = MapController.MapMaker(this);
             InitializeComponent();
-            snake = new Snake(0, 0, 0, 0, 0);
+            SnakeHead = new Snake(0, 0, 0, 0, 0, 0);
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
             simTimer = new DispatcherTimer();
-            visualX = snake.PosX;
-            visualY = snake.PosY;
+            visualX = SnakeHead.PosX;
+            visualY = SnakeHead.PosY;
             MapController.FillUpGameSpace(this);
             RefreshSnakePosition();
-            //simTimer.Interval = TimeSpan.FromSeconds(Time.TimeRate);
-            //simTimer.Tick += SimTimer_Tick;
+            simTimer = new DispatcherTimer();
+            simTimer.Interval = TimeSpan.FromMilliseconds(500);
+            simTimer.Tick += SimTimer_Tick; 
+            simTimer.Start();
+        }
+
+        private void SimTimer_Tick(object sender, EventArgs e)
+        {
+            SnakeHead.LastPosX = SnakeHead.PosX;
+            SnakeHead.LastPosY = SnakeHead.PosY;
+            if(SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
+            {
+                simTimer.Stop();
+                MessageBox.Show("hékabéka");
+                return;
+            }
+            switch (SnakeHead.Rotation)
+            {
+                case 180: 
+                    visualY--;
+                    SnakeHead.PosY--;
+                    break;
+                case 0: 
+                    visualY++;
+                    SnakeHead.PosY++;
+                    break; 
+                case 270: 
+                    visualX++;
+                    SnakeHead.PosX++;
+                    break; 
+                case 90: 
+                    visualX--; 
+                    SnakeHead.PosX--;
+                    break; 
+            }
+            int almaszam = rnd.Next(1, maxalmaszam);
+            if(!ApplesInMap)
+                MapController.SpawnApples(almaszam, this);
+            ClampVisualPosition();
+            RefreshSnakePosition();
+        }
+        public void ClampVisualPosition()
+        {
+            visualX = Math.Max(0, Math.Min(mapsize - 1, visualX));
+            visualY = Math.Max(0, Math.Min(mapsize - 1, visualY));
         }
         public void RefreshSnakePosition()
         {
-            // Itt a logikai rover.Xposition helyett a folyamatosan változó visualX-et használjuk!
             Canvas.SetLeft(SnakeHeadImage, visualX * tileSize);
             Canvas.SetTop(SnakeHeadImage, visualY * tileSize);
-            //txtPos.Text = $"X: {snake.PosX}, Y: {snake.PosY}";
-            //if (FollowRoverBox.IsChecked == true)
-            //{
-            //    kamera.ScrollToVerticalOffset(visualY * tileSize - (kamera.ActualHeight / 2));
-            //    kamera.ScrollToHorizontalOffset(visualX * tileSize - (kamera.ActualWidth / 2));
-            //}
+            txtPos.Text = $"X: {SnakeHead.PosX+1} Y: {SnakeHead.PosY+1} Direction: {SnakeHead.GetDirection()}";
+            rotateTransform.Angle = SnakeHead.Rotation;
+            kamera.ScrollToHorizontalOffset(visualX * tileSize - (kamera.ActualWidth / 2));
+            kamera.ScrollToVerticalOffset(visualY * tileSize - (kamera.ActualHeight / 2));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            kamera.ScrollToVerticalOffset(snake.PosY * tileSize - (kamera.ActualHeight / 2));
-            kamera.ScrollToHorizontalOffset(snake.PosX * tileSize - (kamera.ActualWidth / 2));
+            kamera.ScrollToVerticalOffset(SnakeHead.PosY * tileSize - (kamera.ActualHeight / 2));
+            kamera.ScrollToHorizontalOffset(SnakeHead.PosX * tileSize - (kamera.ActualWidth / 2));
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -70,22 +115,27 @@ namespace KP_SnakeProjekt
             switch (e.Key)
             {
                 case Key.W:
-                    kamera.ScrollToVerticalOffset(kamera.VerticalOffset - tileSize);
+                    if (SnakeHead.Rotation != 0)
+                        SnakeHead.Rotation = 180;
                     break;
                 case Key.S:
-                    kamera.ScrollToVerticalOffset(kamera.VerticalOffset + tileSize);
-                    break;
-                case Key.A:
-                    kamera.ScrollToHorizontalOffset(kamera.HorizontalOffset - tileSize);
+                    if (SnakeHead.Rotation != 180)
+                        SnakeHead.Rotation = 0;
                     break;
                 case Key.D:
-                    kamera.ScrollToHorizontalOffset(kamera.HorizontalOffset + tileSize);
+                    if (SnakeHead.Rotation != 90)
+                        SnakeHead.Rotation = 270;
+                    break;
+                case Key.A:
+                    if (SnakeHead.Rotation != 270)
+                        SnakeHead.Rotation = 90;
                     break;
                 case Key.Space:
-                    kamera.ScrollToVerticalOffset(snake.PosY * tileSize - (kamera.ActualHeight / 2));
-                    kamera.ScrollToHorizontalOffset(snake.PosX * tileSize - (kamera.ActualWidth / 2));
+                    kamera.ScrollToVerticalOffset(SnakeHead.PosY * tileSize - (kamera.ActualHeight / 2));
+                    kamera.ScrollToHorizontalOffset(SnakeHead.PosX * tileSize - (kamera.ActualWidth / 2));
                     break;
             }
+            RefreshSnakePosition();
         }
     }
 }

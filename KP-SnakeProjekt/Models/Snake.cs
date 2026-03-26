@@ -8,13 +8,14 @@ namespace KP_SnakeProjekt.Models
 {
     class Snake
     {
-        public Snake(int posX, int posY, int lastPosX, int lastPosY, int applesEaten = 0)
+        public Snake(int posX, int posY, int lastPosX, int lastPosY, int applesEaten = 0, int rotation = 0)
         {
             PosX = posX;
             PosY = posY;
             LastPosX = lastPosX;
             LastPosY = lastPosY;
             ApplesEaten = applesEaten;
+            Rotation = rotation;
         }
         public Snake() { }
 
@@ -26,6 +27,26 @@ namespace KP_SnakeProjekt.Models
 
         public int ApplesEaten { get; set; }
 
+        public int Rotation { get; set; }
+        
+        public string GetDirection()
+        {
+            return Rotation switch
+            {
+                0 => "Down",
+                270 => "Right",
+                180 => "Up",
+                90 => "Left",
+                _ => "Unknown"
+            };
+        }
 
+        enum Direction
+        {
+            Up,
+            Right,
+            Down,
+            Left
+        }
     }
 }

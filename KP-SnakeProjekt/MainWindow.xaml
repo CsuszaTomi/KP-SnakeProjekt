@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KP_SnakeProjekt"
         mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Loaded="Window_Loaded"
         Title="Snake Projekt" Height="600" Width="1000"
         Background="#121212" WindowStartupLocation="CenterScreen">
 
@@ -45,16 +47,29 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="1" 
-                      HorizontalScrollBarVisibility="Hidden" 
-                      VerticalScrollBarVisibility="Hidden" 
-                      Background="#1a1a1c" 
-                      x:Name="kamera">
-            <Canvas x:Name="jatekter" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center">
-            </Canvas>
-        </ScrollViewer>
+        <Grid Grid.Row="1" Margin="20">
+            <Border BorderBrush="#3e3e42" 
+            BorderThickness="4" 
+            CornerRadius="10" 
+            Background="#000000"
+            Padding="5">
 
+                <Border BorderBrush="#1a1a1c" 
+                BorderThickness="2" 
+                CornerRadius="5">
+
+                    <ScrollViewer x:Name="kamera" 
+                          HorizontalScrollBarVisibility="Hidden" 
+                          VerticalScrollBarVisibility="Hidden" 
+                          Background="#1a1a1c">
+
+                        <Canvas x:Name="jatekter" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center">
+                        </Canvas>
+                    </ScrollViewer>
+                </Border>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
