@@ -38,24 +38,31 @@ namespace KP_SnakeProjekt
         Random rnd = new Random();
         int maxalmaszam = 10;
         public bool ApplesInMap = false;
+        public List<Image> bodyImages = new List<Image>();
+        BitmapImage bodyCorner = new BitmapImage();
+        BitmapImage bodyStraight = new BitmapImage();
         public MainWindow()
         {
-            map = MapController.MapMaker(this);
             InitializeComponent();
-            SnakeHead = new Snake(15, 15, 0, 0, 0, 0, false);
+            map = MapController.MapMaker(this);
+            groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
+            bodyStraight = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-body.png"));
+            bodyCorner = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-tail.png"));
+            SnakeHead = new Snake(15, 15, 15, 14, 0, 0, false);
+            snakeBody.Clear();
             snakeBody.Add(SnakeHead);
             for (int i = 1; i <= 5; i++)
             {
-                int tailPosX = SnakeHead.PosX;
-                int tailPosY = SnakeHead.PosY - i; 
-                int tailLastPosY = tailPosY - 1;  
-                snakeBody.Add(new Snake(tailPosX, tailPosY, tailPosX, tailLastPosY, 0, 0, true));
+                snakeBody.Add(new Snake(15, 15 - i, 15, 15 - i - 1, 0, 0, true));
             }
-            groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
-            simTimer = new DispatcherTimer();
-            visualX = SnakeHead.PosX;
-            visualY = SnakeHead.PosY;   
             MapController.FillUpGameSpace(this);
+            bodyImages.Clear();
+            for (int i = 1; i < snakeBody.Count; i++)
+            {
+                CreateSnakeBodyPart();
+            }
+            visualX = SnakeHead.PosX;
+            visualY = SnakeHead.PosY;
             RefreshSnakePosition();
             simTimer = new DispatcherTimer();
             simTimer.Interval = TimeSpan.FromMilliseconds(500);
@@ -69,30 +76,24 @@ namespace KP_SnakeProjekt
 
         private void SimTimer_Tick(object sender, EventArgs e)
         {
-            SnakeHead.LastPosX = SnakeHead.PosX;
-            SnakeHead.LastPosY = SnakeHead.PosY;
-
+            int prevX = SnakeHead.PosX;
+            int prevY = SnakeHead.PosY;
             switch (SnakeHead.Rotation)
             {
-                case 180:
-                    SnakeHead.PosY--;
-                    break;
-                case 0:
-                    SnakeHead.PosY++;
-                    break;
-                case 270:
-                    SnakeHead.PosX++;
-                    break;
-                case 90:
-                    SnakeHead.PosX--;
-                    break;
+                case 180: SnakeHead.PosY--; break;
+                case 0: SnakeHead.PosY++; break;
+                case 270: SnakeHead.PosX++; break;
+                case 90: SnakeHead.PosX--; break;
             }
-            foreach (var bodyPart in snakeBody.Skip(1))
+            //A testrészek követik egymást láncban
+            for (int i = 1; i < snakeBody.Count; i++)
             {
-                bodyPart.LastPosX = bodyPart.PosX;
-                bodyPart.LastPosY = bodyPart.PosY;
-                bodyPart.PosX = SnakeHead.LastPosX;
-                bodyPart.PosY = SnakeHead.LastPosY;
+                int tempX = snakeBody[i].PosX;
+                int tempY = snakeBody[i].PosY;
+                snakeBody[i].PosX = prevX;
+                snakeBody[i].PosY = prevY;
+                prevX = tempX;
+                prevY = tempY;
             }
             if (SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
             {
@@ -105,7 +106,6 @@ namespace KP_SnakeProjekt
             if (!ApplesInMap)
                 MapController.SpawnApples(almaszam, this);
         }
-
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
             visualX += (SnakeHead.PosX - visualX) * 0.2;
@@ -114,19 +114,104 @@ namespace KP_SnakeProjekt
             ClampVisualPosition();
             RefreshSnakePosition();
         }
+
         public void ClampVisualPosition()
         {
             visualX = Math.Max(0, Math.Min(mapsize - 1, visualX));
             visualY = Math.Max(0, Math.Min(mapsize - 1, visualY));
         }
+        public void CreateSnakeBodyPart()
+        {
+            RotateTransform individualTransform = new RotateTransform(0);
+            Image snakeBodyPartImage = new Image()
+            {
+                Width = tileSize,
+                Height = tileSize,
+                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-body.png")),
+                RenderTransformOrigin = new Point(0.5, 0.5),
+                RenderTransform = individualTransform
+            };
+            Panel.SetZIndex(snakeBodyPartImage, 9);
+            bodyImages.Add(snakeBodyPartImage);
+            jatekter.Children.Add(snakeBodyPartImage);
+        }
+
         public void RefreshSnakePosition()
         {
+            if (SnakeHeadImage == null) return;
+
+            // Fej pozíciója és forgatása
             Canvas.SetLeft(SnakeHeadImage, visualX * tileSize);
             Canvas.SetTop(SnakeHeadImage, visualY * tileSize);
-            txtPos.Text = $"X: {SnakeHead.PosX+1} Y: {SnakeHead.PosY+1} Direction: {SnakeHead.GetDirection()}";
             rotateTransform.Angle = SnakeHead.Rotation;
-            kamera.ScrollToHorizontalOffset(visualX * tileSize - (kamera.ActualWidth / 2));
-            kamera.ScrollToVerticalOffset(visualY * tileSize - (kamera.ActualHeight / 2));
+            // Testrészek pozíciója és forgatása
+            for (int i = 0; i < bodyImages.Count; i++)
+            {
+                int currentIdx = i + 1; 
+                Image img = bodyImages[i];
+                Snake current = snakeBody[currentIdx];
+                Snake lead = snakeBody[currentIdx - 1];
+                Canvas.SetLeft(img, current.PosX * tileSize);
+                Canvas.SetTop(img, current.PosY * tileSize);
+                RotateTransform rt = (RotateTransform)img.RenderTransform;
+                // Ha van követő, akkor sarok vagy egyenes
+                if (currentIdx + 1 < snakeBody.Count)
+                {
+                    Snake follow = snakeBody[currentIdx + 1];
+                    // Irányvektorok
+                    int InX = lead.PosX - current.PosX;
+                    int InY = lead.PosY - current.PosY;
+                    int OutX = follow.PosX - current.PosX;
+                    int OutY = follow.PosY - current.PosY;
+                    if (InX + OutX != 0 || InY + OutY != 0)
+                    {
+                        img.Source = bodyCorner;
+                        rt.Angle = CalculateCornerRotation(InX, InY, OutX, OutY);
+                    }
+                    else
+                    {
+                        img.Source = bodyStraight;
+                        rt.Angle = (InX != 0) ? 90 : 0; 
+                    }
+                }
+                else
+                {
+                    img.Source = bodyStraight;
+                    rt.Angle = CalculateBodyRotation(current, lead);
+                }
+            }
+        }
+        /// <summary>
+        /// A testresz forgatását számítja ki 
+        /// </summary>  
+        /// <param name="current">A jelenlegi testresz</param>
+        /// <param name="lead">A vezető testresz</param>
+        /// <returns>A forgatási szög</returns>
+        private double CalculateBodyRotation(Snake current, Snake lead)
+        {
+            if (lead.PosX > current.PosX) return 270; // Jobbra
+            if (lead.PosX < current.PosX) return 90;  // Balra
+            if (lead.PosY > current.PosY) return 0;   // Le
+            if (lead.PosY < current.PosY) return 180; // Fel
+            return 0;
+        }
+
+        /// <summary>
+        /// A sarok forgatását számítja ki az irányvektorok alapján
+        /// </summary>
+        /// <param name="InX">A bejövő delta x</param>
+        /// <param name="InY">A bejövő delta y</param>
+        /// <param name="OutX">A kimenő delta x</param>
+        /// <param name="OutY">A kimenő delta y</param>
+        /// <returns>A forgatási szög</returns>
+        private double CalculateCornerRotation(int InX, int InY, int OutX, int OutY)
+        {
+            // Irányvektorok alapján meghatározzuk a sarok forgatását
+            if ((InY == -1 && OutX == 1) || (InX == 1 && OutY == -1)) return 0;   // Bal-Felső sarok
+            if ((InX == 1 && OutY == 1) || (InY == 1 && OutX == 1)) return 90;  // Bal-Alsó sarok
+            if ((InY == 1 && OutX == -1) || (InX == -1 && OutY == 1)) return 180; // Jobb-Alsó sarok
+            if ((InX == -1 && OutY == -1) || (InY == -1 && OutX == -1)) return 270; // Jobb-Felső sarok
+            return 0;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

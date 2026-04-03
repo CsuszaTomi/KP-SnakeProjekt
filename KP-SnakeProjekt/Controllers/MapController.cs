@@ -94,30 +94,21 @@ namespace PSZK_MarsRoverProject.Controllers
         {
             for (int i = 0; i < applescount; i++)
             {
-                int x = rnd.Next(0, mw.mapsize);
-                int y = rnd.Next(0, mw.mapsize);
-                if (mw.map[x, y] == ".")
+                int row = rnd.Next(0, mw.mapsize);
+                int col = rnd.Next(0, mw.mapsize);
+                if (mw.map[row, col] == ".")
                 {
-                    mw.map[x, y] = "A";
-                }
-            }
-            for (int i = 0; i < mw.mapsize; i++)
-            {
-                for (int j = 0; j < mw.mapsize; j++)
-                {
-                    if (mw.map[i, j] == "A")
+                    mw.map[row, col] = "A";
+                    Image almaImage = new Image()
                     {
-                        Image almaImage = new Image()
-                        {
-                            Width = mw.tileSize,
-                            Height = mw.tileSize,
-                            Source = new BitmapImage(new Uri("pack://application:,,,/img/Consumables/apple.png"))
-                        };
-                        Panel.SetZIndex(almaImage, 5);
-                        Canvas.SetLeft(almaImage, j * mw.tileSize);
-                        Canvas.SetTop(almaImage, i * mw.tileSize);
-                        mw.jatekter.Children.Add(almaImage);
-                    }
+                        Width = mw.tileSize,
+                        Height = mw.tileSize,
+                        Source = new BitmapImage(new Uri("pack://application:,,,/img/Consumables/apple.png"))
+                    };
+                    Panel.SetZIndex(almaImage, 5);
+                    Canvas.SetLeft(almaImage, col * mw.tileSize);
+                    Canvas.SetTop(almaImage, row * mw.tileSize);
+                    mw.jatekter.Children.Add(almaImage);
                 }
             }
             mw.ApplesInMap = true;
