@@ -19,9 +19,10 @@
   <ItemGroup>
     <None Remove="img\apple.png" />
     <None Remove="img\kep57.png" />
-    <None Remove="img\Skins\snake-body.png" />
-    <None Remove="img\Skins\snake-head.png" />
-    <None Remove="img\Skins\snake-tail.png" />
+    <None Remove="img\Skins\snakebody-v2.png" />
+    <None Remove="img\Skins\snakehead-teszt.png" />
+    <None Remove="img\Skins\snakehead-v2.png" />
+    <None Remove="img\Skins\snaketail-v2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +32,10 @@
   <ItemGroup>
     <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\kep57.png" />
-    <Resource Include="img\Skins\snake-body.png" />
-    <Resource Include="img\Skins\snake-head.png" />
-    <Resource Include="img\Skins\snake-tail.png" />
+    <Resource Include="img\Skins\snakebody.png" />
+    <Resource Include="img\Skins\snakehead.png" />
+    <Resource Include="img\Skins\snaketail.png" />
+    <Resource Include="img\Skins\snakehead-teszt.png" />
   </ItemGroup>
 
 </Project>

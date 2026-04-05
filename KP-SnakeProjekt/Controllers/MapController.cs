@@ -69,7 +69,7 @@ namespace PSZK_MarsRoverProject.Controllers
             {
                 Width = mw.tileSize,
                 Height = mw.tileSize,
-                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-head.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakehead.png")),
                 RenderTransformOrigin = new Point(0.5, 0.5),
                 RenderTransform = mw.rotateTransform
             };

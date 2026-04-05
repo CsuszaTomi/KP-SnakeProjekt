@@ -46,8 +46,8 @@ namespace KP_SnakeProjekt
             InitializeComponent();
             map = MapController.MapMaker(this);
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
-            bodyStraight = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-body.png"));
-            bodyCorner = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-tail.png"));
+            bodyStraight = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakebody.png"));
+            bodyCorner = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snaketail.png"));
             SnakeHead = new Snake(15, 15, 15, 14, 0, 0, false);
             snakeBody.Clear();
             snakeBody.Add(SnakeHead);
@@ -127,7 +127,7 @@ namespace KP_SnakeProjekt
             {
                 Width = tileSize,
                 Height = tileSize,
-                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snake-body.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakebody.png")),
                 RenderTransformOrigin = new Point(0.5, 0.5),
                 RenderTransform = individualTransform
             };
