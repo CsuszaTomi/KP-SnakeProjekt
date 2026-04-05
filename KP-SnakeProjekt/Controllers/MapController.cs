@@ -103,7 +103,7 @@ namespace PSZK_MarsRoverProject.Controllers
                     {
                         Width = mw.tileSize,
                         Height = mw.tileSize,
-                        Source = new BitmapImage(new Uri("pack://application:,,,/img/Consumables/apple.png"))
+                        Source = new BitmapImage(new Uri("pack://application:,,,/img/Consumables/appleV2.png"))
                     };
                     Panel.SetZIndex(almaImage, 5);
                     Canvas.SetLeft(almaImage, col * mw.tileSize);

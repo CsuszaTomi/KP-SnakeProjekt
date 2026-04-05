@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="img\Maps\**" />
+    <EmbeddedResource Remove="img\Maps\**" />
+    <None Remove="img\Maps\**" />
+    <Page Remove="img\Maps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="img\apple.png" />
     <None Remove="img\kep57.png" />
     <None Remove="img\Skins\snake-body.png" />
@@ -18,12 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="img\Maps\" />
     <Folder Include="View\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\Consumables\apple.png" />
+    <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\kep57.png" />
     <Resource Include="img\Skins\snake-body.png" />
     <Resource Include="img\Skins\snake-head.png" />
