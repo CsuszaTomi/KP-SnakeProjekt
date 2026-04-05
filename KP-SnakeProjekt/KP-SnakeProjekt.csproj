@@ -33,6 +33,7 @@
     <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\kep57.png" />
     <Resource Include="img\Skins\snakebody.png" />
+    <Resource Include="img\Skins\snakecorner.png" />
     <Resource Include="img\Skins\snakehead.png" />
     <Resource Include="img\Skins\snaketail.png" />
     <Resource Include="img\Skins\snakehead-teszt.png" />
