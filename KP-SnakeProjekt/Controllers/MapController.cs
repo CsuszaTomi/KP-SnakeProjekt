@@ -113,5 +113,25 @@ namespace PSZK_MarsRoverProject.Controllers
             }
             mw.ApplesInMap = true;
         }
+
+        public static void RemoveApple(int row, int col, MainWindow mw)
+        {
+            mw.map[row, col] = ".";
+            foreach (UIElement elem in mw.jatekter.Children)
+            {
+                if (elem is Image img)
+                {
+                    double left = Canvas.GetLeft(img);
+                    double top = Canvas.GetTop(img);
+                    if ((int)(left / mw.tileSize) == col && (int)(top / mw.tileSize) == row)
+                    {
+                        if (img == mw.SnakeHeadImage || mw.bodyImages.Contains(img))
+                            continue;
+                        mw.jatekter.Children.Remove(img);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

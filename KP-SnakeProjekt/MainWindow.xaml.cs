@@ -41,6 +41,8 @@ namespace KP_SnakeProjekt
         public List<Image> bodyImages = new List<Image>();
         BitmapImage bodyCorner = new BitmapImage();
         BitmapImage bodyStraight = new BitmapImage();
+        int eatenApples = 0;
+        int bodysize = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -54,6 +56,8 @@ namespace KP_SnakeProjekt
             for (int i = 1; i <= 5; i++)
             {
                 snakeBody.Add(new Snake(15, 15 - i, 15, 15 - i - 1, 0, 0, true));
+                bodysize++;
+                txtBodyLength.Text = $"{bodysize}";
             }
             MapController.FillUpGameSpace(this);
             bodyImages.Clear();
@@ -105,6 +109,19 @@ namespace KP_SnakeProjekt
             int almaszam = rnd.Next(1, maxalmaszam);
             if (!ApplesInMap)
                 MapController.SpawnApples(almaszam, this);
+            if(map[SnakeHead.PosY, SnakeHead.PosX] == "A")
+            {
+                MapController.SpawnApples(1, this);
+                MapController.RemoveApple(SnakeHead.PosY, SnakeHead.PosX, this);
+                snakeBody.Add(new Snake(prevX, prevY, prevX, prevY, 0, 0, true));
+                CreateSnakeBodyPart();
+                bodysize++;
+                eatenApples++;
+                txtApples.Text = $"{eatenApples} db";
+                txtBodyLength.Text = $"{bodysize}";
+            }
+            kamera.ScrollToHorizontalOffset(visualX * tileSize - (kamera.ActualWidth / 2) + tileSize / 2);
+            kamera.ScrollToVerticalOffset(visualY * tileSize - (kamera.ActualHeight / 2) + tileSize / 2);
         }
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
