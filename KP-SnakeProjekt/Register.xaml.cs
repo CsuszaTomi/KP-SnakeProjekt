@@ -57,7 +57,7 @@ namespace KP_SnakeProjekt
                 ShowError("► A felhasználónév már foglalt!");
                 return;
             }
-            MessageBox.Show($"► sikeres regisztráció, {username}!\nMost már bejelentkezhetsz.", "Siker", MessageBoxButton.OK);
+            //MessageBox.Show($"► sikeres regisztráció, {username}!\nMost már bejelentkezhetsz.", "Siker", MessageBoxButton.OK);
             this.Close();
         }
 
