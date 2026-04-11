@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\kep57.png" />
     <Resource Include="img\Skins\snakebody.png" />

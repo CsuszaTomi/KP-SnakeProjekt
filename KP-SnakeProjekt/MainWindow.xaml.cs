@@ -43,6 +43,7 @@ namespace KP_SnakeProjekt
         BitmapImage bodyStraight = new BitmapImage();
         int eatenApples = 0;
         int bodysize = 0;
+        public Users LoggedUser;
         public MainWindow()
         {
             InitializeComponent();
@@ -235,6 +236,7 @@ namespace KP_SnakeProjekt
         {
             kamera.ScrollToVerticalOffset(SnakeHead.PosY * tileSize - (kamera.ActualHeight / 2));
             kamera.ScrollToHorizontalOffset(SnakeHead.PosX * tileSize - (kamera.ActualWidth / 2));
+            MessageBox.Show($"{LoggedUser.UserName}");
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
