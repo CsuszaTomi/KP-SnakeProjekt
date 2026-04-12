@@ -31,24 +31,21 @@ namespace KP_SnakeProjekt
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Password;
-
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                ShowError("Töltsd ki az összes mezőt!");
+                ShowError("► töltsd ki az összes mezőt!");
                 return;
             }
             Users user = DatabaseController.Login(username, password);
             if (user != null)
             {
-                LoggedUser = new Users(1, username, password);
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.LoggedUser = LoggedUser;
-                mainWindow.Show();
+                LoggedUser = user;
+                this.DialogResult = true;
                 this.Close();
             }
             else
             {
-                ShowError("Hibás felhasználónév vagy jelszó!");
+                ShowError("► hibás felhasználónév vagy jelszó!");
             }
         }
 

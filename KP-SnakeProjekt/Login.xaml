@@ -15,12 +15,8 @@
         <Ellipse Width="200" Height="200" Fill="#1a2f1a" HorizontalAlignment="Right"
                  VerticalAlignment="Bottom" Margin="0,0,-60,-60" Opacity="0.4"/>
         <StackPanel VerticalAlignment="Center" Margin="50,0">
-
             <!-- Cím -->
-            <TextBlock HorizontalAlignment="Center" Margin="0,0,0,5">
-                <Run Text="🐍" FontSize="40"/>
-            </TextBlock>
-            <TextBlock Text="Kígyó" FontSize="42" FontWeight="Black"
+            <TextBlock Text="Bejelentkezés" FontSize="42" FontWeight="Black"
                        Foreground="#4ade80" HorizontalAlignment="Center"
                        FontFamily="Consolas" Margin="0,0,0,4">
                 <TextBlock.Effect>
@@ -30,7 +26,6 @@
             <!--<TextBlock Text="jelentkezz be a játékhoz" FontSize="12"
                        Foreground="#4b5563" HorizontalAlignment="Center"
                        FontFamily="Consolas" Margin="0,0,0,30"/>-->
-
             <!-- Felhasználónév -->
             <TextBlock Text="► felhasználónév" Foreground="#4ade80" FontSize="11"
                        FontFamily="Consolas" Margin="0,0,0,4"/>
@@ -40,7 +35,6 @@
                          BorderThickness="0" Padding="10,6"
                          FontFamily="Consolas" CaretBrush="#4ade80"/>
             </Border>
-
             <!-- Betyár Jelszó -->
             <TextBlock Text="► jelszó" Foreground="#4ade80" FontSize="11"
                        FontFamily="Consolas" Margin="0,15,0,4"/>
@@ -50,12 +44,10 @@
                              BorderThickness="0" Padding="10,6"
                              FontFamily="Consolas"/>
             </Border>
-
             <!-- Hibaüzenet -->
             <TextBlock x:Name="txtError" Foreground="#f87171" FontSize="12"
                        FontFamily="Consolas" Margin="0,10,0,0"
                        TextWrapping="Wrap" Visibility="Collapsed"/>
-
             <!-- Bejelentkezés gomb -->
             <Button x:Name="btnLogin" Height="42" Margin="0,20,0,0"
                     Background="#4ade80" Foreground="#0d1117"
@@ -63,10 +55,9 @@
                     Cursor="Hand" Click="btnLogin_Click"
                     FontFamily="Consolas">
                 <Button.Content>
-                    <TextBlock Text="▶  JÁTÉK INDÍTÁSA" />
+                    <TextBlock Text="▶  BEJELENTKEZÉS" />
                 </Button.Content>
             </Button>
-
             <!-- Regisztráció gomb -->
             <Button x:Name="btnRegister" Height="38" Margin="0,10,0,0"
                     Background="Transparent" Foreground="#4b5563"

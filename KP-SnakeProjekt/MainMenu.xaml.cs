@@ -1,0 +1,83 @@
+﻿using KP_SnakeProjekt.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace KP_SnakeProjekt
+{
+    /// <summary>
+    /// Interaction logic for MainMenu.xaml
+    /// </summary>
+    public partial class MainMenu : Window
+    {
+        public Users LoggedUser = null;
+        public MainMenu()
+        {
+            InitializeComponent();
+        }
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (LoggedUser == null)
+            {
+                Login loginWindow = new Login();
+                loginWindow.ShowDialog();
+                if (loginWindow.LoggedUser != null)
+                {
+                    LoggedUser = loginWindow.LoggedUser;
+                    txtUsername.Text = LoggedUser.UserName;
+                }
+            }
+            else
+            {
+                // Ha már be van jelentkezve, kijelentkezés
+                MessageBoxResult result = MessageBox.Show(
+                    $"Kijelentkezel, {LoggedUser.UserName}?",
+                    "Kijelentkezés",
+                    MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    LoggedUser = null;
+                    txtUsername.Text = "vendég";
+                    txtMaxScore.Text = "";
+                }
+            }
+        }
+
+        private void btnGame_Click(object sender, RoutedEventArgs e)
+        {
+            if (LoggedUser == null)
+            {
+                MessageBox.Show("► jelentkezz be a játékhoz!", "Snake");
+                return;
+            }
+            MainWindow game = new MainWindow();
+            game.LoggedUser = LoggedUser;
+            game.Show();
+        }
+
+        private void btnSkins_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("► hamarosan!", "Skinek");
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("► hamarosan!", "Beállítások");
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+    }
+}
