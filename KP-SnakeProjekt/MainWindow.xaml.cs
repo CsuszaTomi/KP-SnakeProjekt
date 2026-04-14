@@ -162,6 +162,7 @@ namespace KP_SnakeProjekt
         {
             simTimer.Stop();
             renderTimer.Stop();
+            timeTimer.Stop();
             //GameOverOverlay.Visibility = Visibility.Visible;
             if (LoggedUser != null)
             {
