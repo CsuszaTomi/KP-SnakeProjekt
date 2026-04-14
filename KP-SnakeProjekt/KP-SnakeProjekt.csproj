@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <None Remove="img\apple.png" />
+    <None Remove="img\ground.png" />
     <None Remove="img\kep57.png" />
     <None Remove="img\Skins\snakebody-v2.png" />
     <None Remove="img\Skins\snakebodyBl.png" />
@@ -54,6 +55,7 @@
 
   <ItemGroup>
     <Resource Include="img\Consumables\appleV2.png" />
+    <Resource Include="img\ground.png" />
     <Resource Include="img\kep57.png" />
     <Resource Include="img\Skins\snakebody.png" />
     <Resource Include="img\Skins\snakebodyBl.png" />

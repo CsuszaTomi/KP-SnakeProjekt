@@ -54,7 +54,7 @@ namespace KP_SnakeProjekt
             InitializeComponent();
             string skin = Skins.SelectedSkin == "default" ? "" : Skins.SelectedSkin;
             map = MapController.MapMaker(this);
-            groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
+            groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/ground.png"));
             bodyStraight = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakebody{skin}.png"));
             bodyCorner = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakecorner{skin}.png"));
             bodyTail = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snaketail{skin}.png"));
