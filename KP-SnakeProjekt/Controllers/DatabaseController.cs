@@ -80,5 +80,18 @@ namespace KP_SnakeProjekt.Controllers
             connection.Close();
             return users;
         }
+
+        public static void AddScore(int userId, int score)
+        {
+            MySqlConnection connection = new MySqlConnection();
+            connection.ConnectionString = connectionString;
+            connection.Open();
+            string sql = "INSERT INTO snakeadatb.scores (UserID, Score) VALUES (@userId, @score)";
+            MySqlCommand cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@score", score);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using KP_SnakeProjekt.Controllers;
 using KP_SnakeProjekt.Models;
 using PSZK_MarsRoverProject.Controllers;
 
@@ -121,16 +122,12 @@ namespace KP_SnakeProjekt
             }
             if (SnakeHead.PosX < 0 || SnakeHead.PosX >= mapsize || SnakeHead.PosY < 0 || SnakeHead.PosY >= mapsize)
             {
-                simTimer.Stop();
-                renderTimer.Stop();
-                MessageBox.Show("hékabéka");
+                EndGame();
                 return;
             }
             if (snakeBodyMap[SnakeHead.PosY, SnakeHead.PosX] == "S")
             {
-                simTimer.Stop();
-                renderTimer.Stop();
-                MessageBox.Show("hékabéka");
+                EndGame();
                 return;
             }
             int almaszam = rnd.Next(1, maxalmaszam);
@@ -159,6 +156,14 @@ namespace KP_SnakeProjekt
 
             ClampVisualPosition();
             RefreshSnakePosition();
+        }
+
+        private void EndGame()
+        {
+            simTimer.Stop();
+            renderTimer.Stop();
+            //GameOverOverlay.Visibility = Visibility.Visible;
+            DatabaseController.AddScore(LoggedUser.Id, eatenApples);
         }
 
         private string GetPassedTime()
@@ -289,6 +294,7 @@ namespace KP_SnakeProjekt
             kamera.ScrollToVerticalOffset(SnakeHead.PosY * tileSize - (kamera.ActualHeight / 2));
             kamera.ScrollToHorizontalOffset(SnakeHead.PosX * tileSize - (kamera.ActualWidth / 2));
             //MessageBox.Show($"{LoggedUser.UserName}");
+            txtPlayer.Text = LoggedUser?.UserName ?? "Vendég";
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
