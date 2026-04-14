@@ -83,7 +83,8 @@ namespace KP_SnakeProjekt
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hamarosan!", "Beállítások");
+            Settings settingsWindow = new Settings();
+            settingsWindow.ShowDialog();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
