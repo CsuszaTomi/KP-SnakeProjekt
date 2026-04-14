@@ -136,5 +136,104 @@
                 </Border>
             </Border>
         </Grid>
+        <Grid x:Name="GameOverOverlay" Grid.RowSpan="2" Background="#F00d1117" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Background="#161b22"
+            BorderBrush="#4ade80"
+            BorderThickness="2"
+            CornerRadius="12"
+            Padding="40"
+            MaxWidth="480"
+            MaxHeight="480"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center">
+
+                    <TextBlock Text="JÁTÉK VÉGE"
+                       Foreground="#f87171"
+                       FontSize="36"
+                       FontWeight="Black"
+                       FontFamily="Consolas"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,6"/>
+
+                    <TextBlock x:Name="GameOverUzenet"
+                       Text=""
+                       Foreground="#4b5563"
+                       FontSize="12"
+                       FontFamily="Consolas"
+                       FontStyle="Italic"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+                    <Border Height="1" Background="#1f2937" Margin="0,0,0,20"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,14">
+                            <TextBlock Text="🍎" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="MEGEVETT ALMÁK" Foreground="#4b5563"
+                               FontSize="11" FontWeight="Bold" FontFamily="Consolas"
+                               VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                           x:Name="GOAlmak" Text="0 db"
+                           Foreground="#f87171" FontSize="15"
+                           FontWeight="Bold" FontFamily="Consolas"
+                           HorizontalAlignment="Right" Margin="0,0,0,14"/>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,14">
+                            <TextBlock Text="🐍" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="VÉGSŐ TESTHOSSZ" Foreground="#4b5563"
+                               FontSize="11" FontWeight="Bold" FontFamily="Consolas"
+                               VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                           x:Name="GOTesthossz" Text="0"
+                           Foreground="#f87171" FontSize="15"
+                           FontWeight="Bold" FontFamily="Consolas"
+                           HorizontalAlignment="Right" Margin="0,0,0,14"/>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="⏱" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="ELTELT IDŐ" Foreground="#4b5563"
+                               FontSize="11" FontWeight="Bold" FontFamily="Consolas"
+                               VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                           x:Name="GOIdo" Text="00:00"
+                           Foreground="#4ade80" FontSize="15"
+                           FontWeight="Bold" FontFamily="Consolas"
+                           HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Border Height="1" Background="#1f2937" Margin="0,20,0,20"/>
+
+                    <Button x:Name="btnRestart" Content="ÚJ JÁTÉK"
+                    Height="48" Margin="0,0,0,12"
+                    Background="#4ade80" Foreground="#0d1117"
+                    FontWeight="Bold" FontSize="15"
+                    BorderThickness="0" Cursor="Hand"
+                    FontFamily="Consolas"
+                    Click="btnRestart_Click"/>
+
+                    <Button x:Name="btnMainMenu" Content="FŐMENÜ"
+                    Height="44"
+                    Background="#161b22" Foreground="#4ade80"
+                    FontSize="14" BorderThickness="1"
+                    BorderBrush="#4ade80" Cursor="Hand"
+                    FontFamily="Consolas"
+                    Click="btnMainMenu_Click"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

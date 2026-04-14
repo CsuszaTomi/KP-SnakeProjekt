@@ -163,7 +163,21 @@ namespace KP_SnakeProjekt
             simTimer.Stop();
             renderTimer.Stop();
             //GameOverOverlay.Visibility = Visibility.Visible;
-            DatabaseController.AddScore(LoggedUser.Id, eatenApples);
+            if (LoggedUser != null)
+            {
+                try
+                {
+                    DatabaseController.AddScore(LoggedUser.Id, eatenApples);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Hiba a pontszám mentésekor: {ex.Message}");
+                }
+            }
+            GOAlmak.Text = $"{eatenApples} db";
+            GOTesthossz.Text = $"{bodysize}";
+            GOIdo.Text = GetPassedTime();
+            GameOverOverlay.Visibility = Visibility.Visible;
         }
 
         private string GetPassedTime()
@@ -323,6 +337,22 @@ namespace KP_SnakeProjekt
                     break;
             }
             RefreshSnakePosition();
+        }
+
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow newGame = new MainWindow();
+            newGame.LoggedUser = LoggedUser;
+            newGame.Show();
+            this.Close();
+        }
+
+        private void btnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenu menu = new MainMenu();
+            menu.LoggedUser = LoggedUser;
+            menu.Show();
+            this.Close();
         }
     }
 }

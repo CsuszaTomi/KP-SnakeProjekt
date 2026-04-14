@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace KP_SnakeProjekt
@@ -20,7 +21,7 @@ namespace KP_SnakeProjekt
     /// </summary>
     public partial class MainMenu : Window
     {
-        public Users LoggedUser = null;
+        public Users LoggedUser;
         public MainMenu()
         {
             InitializeComponent();
@@ -50,6 +51,14 @@ namespace KP_SnakeProjekt
                     txtUsername.Text = "Vendég";
                     txtMaxScore.Text = "";
                 }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(LoggedUser != null)
+            {
+                txtUsername.Text = LoggedUser.UserName;
             }
         }
 
