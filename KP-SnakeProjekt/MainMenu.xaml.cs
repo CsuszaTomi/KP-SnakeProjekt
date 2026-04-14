@@ -77,7 +77,8 @@ namespace KP_SnakeProjekt
 
         private void btnSkins_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hamarosan!", "Skinek");
+            Skins skinswindow = new Skins();
+            skinswindow.Show();
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)

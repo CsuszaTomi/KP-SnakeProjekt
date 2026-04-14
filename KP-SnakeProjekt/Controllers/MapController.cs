@@ -23,7 +23,7 @@ namespace PSZK_MarsRoverProject.Controllers
             return map;
         }
 
-        public static void FillUpGameSpace(MainWindow mw)
+        public static void FillUpGameSpace(MainWindow mw,string skin)
         {
             int rows = mw.map.GetLength(0);
             int cols = mw.map.GetLength(1);
@@ -69,7 +69,7 @@ namespace PSZK_MarsRoverProject.Controllers
             {
                 Width = mw.tileSize,
                 Height = mw.tileSize,
-                Source = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakehead.png")),
+                Source = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakehead{skin}.png")),
                 RenderTransformOrigin = new Point(0.5, 0.5),
                 RenderTransform = mw.rotateTransform
             };

@@ -24,7 +24,7 @@ namespace KP_SnakeProjekt
     {
         public int tileSize = 120;
         public string[,] map;
-        public int mapsize = 20;
+        public int mapsize = 10;
         public BitmapImage groundImage1;
         public Image SnakeHeadImage;
         public DispatcherTimer simTimer;
@@ -52,22 +52,23 @@ namespace KP_SnakeProjekt
         public MainWindow()
         {
             InitializeComponent();
+            string skin = Skins.SelectedSkin == "default" ? "" : Skins.SelectedSkin;
             map = MapController.MapMaker(this);
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
-            bodyStraight = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakebody.png"));
-            bodyCorner = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakecorner.png"));
-            bodyTail = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snaketail.png"));
-            SnakeHead = new Snake(15, 15, 15, 14, 0, 0, false);
+            bodyStraight = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakebody{skin}.png"));
+            bodyCorner = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakecorner{skin}.png"));
+            bodyTail = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snaketail{skin}.png"));
+            SnakeHead = new Snake(5, 5, 5, 5, 0, 0, false);
             snakeBody.Clear();
             snakeBody.Add(SnakeHead);
             snakeBodyMap = MapController.MapMaker(this);
             for (int i = 1; i <= 5; i++)
             {
-                snakeBody.Add(new Snake(15, 15 - i, 15, 15 - i - 1, 0, 0, true));
+                snakeBody.Add(new Snake(5, 5 - i, 5, 5 - i - 1, 0, 0, true));
                 bodysize++;
                 txtBodyLength.Text = $"{bodysize}";
             }
-            MapController.FillUpGameSpace(this);
+            MapController.FillUpGameSpace(this,skin);
             bodyImages.Clear();
             for (int i = 1; i < snakeBody.Count; i++)
             {
