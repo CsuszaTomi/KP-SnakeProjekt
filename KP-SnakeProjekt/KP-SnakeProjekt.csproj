@@ -20,7 +20,6 @@
     <None Remove="img\apple.png" />
     <None Remove="img\kep57.png" />
     <None Remove="img\Skins\snakebody-v2.png" />
-    <None Remove="img\Skins\snakehead-teszt.png" />
     <None Remove="img\Skins\snakehead-v2.png" />
     <None Remove="img\Skins\snaketail-v2.png" />
   </ItemGroup>
@@ -36,7 +35,6 @@
     <Resource Include="img\Skins\snakecorner.png" />
     <Resource Include="img\Skins\snakehead.png" />
     <Resource Include="img\Skins\snaketail.png" />
-    <Resource Include="img\Skins\snakehead-teszt.png" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Ápr 14. 20:09
+-- Létrehozás ideje: 2026. Ápr 14. 21:39
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -34,6 +34,13 @@ CREATE TABLE `scores` (
   `Score` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `scores`
+--
+
+INSERT INTO `scores` (`UserID`, `Score`) VALUES
+(1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -60,12 +67,6 @@ INSERT INTO `users` (`ID`, `Name`, `Password`) VALUES
 --
 
 --
--- A tábla indexei `scores`
---
-ALTER TABLE `scores`
-  ADD UNIQUE KEY `UserID` (`UserID`);
-
---
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
@@ -80,16 +81,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users`
   MODIFY `ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Megkötések a kiírt táblákhoz
---
-
---
--- Megkötések a táblához `scores`
---
-ALTER TABLE `scores`
-  ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
