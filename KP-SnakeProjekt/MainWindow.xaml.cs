@@ -53,18 +53,20 @@ namespace KP_SnakeProjekt
         {
             InitializeComponent();
             string skin = Skins.SelectedSkin == "default" ? "" : Skins.SelectedSkin;
+            mapsize = Settings.SelectedMapSize;
             map = MapController.MapMaker(this);
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/ground.png"));
             bodyStraight = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakebody{skin}.png"));
             bodyCorner = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snakecorner{skin}.png"));
             bodyTail = new BitmapImage(new Uri($"pack://application:,,,/img/Skins/snaketail{skin}.png"));
-            SnakeHead = new Snake(5, 5, 5, 5, 0, 0, false);
+            int snakeLocDisplace = GetSnakeStartDisplacement();
+            SnakeHead = new Snake(snakeLocDisplace, snakeLocDisplace, snakeLocDisplace, snakeLocDisplace, 0, 0, false);
             snakeBody.Clear();
             snakeBody.Add(SnakeHead);
             snakeBodyMap = MapController.MapMaker(this);
             for (int i = 1; i <= 5; i++)
             {
-                snakeBody.Add(new Snake(5, 5 - i, 5, 5 - i - 1, 0, 0, true));
+                snakeBody.Add(new Snake(snakeLocDisplace, snakeLocDisplace - i, snakeLocDisplace, snakeLocDisplace - i - 1, 0, 0, true));
                 bodysize++;
                 txtBodyLength.Text = $"{bodysize}";
             }
@@ -100,6 +102,10 @@ namespace KP_SnakeProjekt
             txtTime.Text = $"Time: {GetPassedTime()}";
         }
 
+        private int GetSnakeStartDisplacement()
+        {
+            return mapsize / 2;
+        }
         private void SimTimer_Tick(object sender, EventArgs e)
         {
             int prevX = SnakeHead.PosX;

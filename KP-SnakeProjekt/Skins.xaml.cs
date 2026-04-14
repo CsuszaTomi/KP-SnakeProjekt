@@ -65,7 +65,7 @@ namespace KP_SnakeProjekt
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             SelectedSkin = tempSelected;
-            MessageBox.Show($"Skin elmentve: {SelectedSkin}", "Skinek");
+            //MessageBox.Show($"Skin elmentve: {SelectedSkin}", "Skinek");
             Close();
         }
 
