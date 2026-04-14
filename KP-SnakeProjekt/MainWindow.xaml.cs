@@ -28,6 +28,7 @@ namespace KP_SnakeProjekt
         public Image SnakeHeadImage;
         public DispatcherTimer simTimer;
         public DispatcherTimer renderTimer;
+        public DispatcherTimer timeTimer;
         double visualX;
         double visualY;
         double stepX = 0;
@@ -41,9 +42,12 @@ namespace KP_SnakeProjekt
         public List<Image> bodyImages = new List<Image>();
         BitmapImage bodyCorner = new BitmapImage();
         BitmapImage bodyStraight = new BitmapImage();
+        BitmapImage bodyTail = new BitmapImage();
         int eatenApples = 0;
         int bodysize = 0;
         public Users LoggedUser;
+        public string[,] snakeBodyMap;
+        public int timePassed = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -51,9 +55,11 @@ namespace KP_SnakeProjekt
             groundImage1 = new BitmapImage(new Uri("pack://application:,,,/img/kep57.png"));
             bodyStraight = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakebody.png"));
             bodyCorner = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snakecorner.png"));
+            bodyTail = new BitmapImage(new Uri("pack://application:,,,/img/Skins/snaketail.png"));
             SnakeHead = new Snake(15, 15, 15, 14, 0, 0, false);
             snakeBody.Clear();
             snakeBody.Add(SnakeHead);
+            snakeBodyMap = MapController.MapMaker(this);
             for (int i = 1; i <= 5; i++)
             {
                 snakeBody.Add(new Snake(15, 15 - i, 15, 15 - i - 1, 0, 0, true));
@@ -69,14 +75,27 @@ namespace KP_SnakeProjekt
             visualX = SnakeHead.PosX;
             visualY = SnakeHead.PosY;
             RefreshSnakePosition();
+            //A szimulációs időzítő, ami a kígyó logikáját futtatja, és a játék fő ciklusát jelenti
             simTimer = new DispatcherTimer();
             simTimer.Interval = TimeSpan.FromMilliseconds(500);
             simTimer.Tick += SimTimer_Tick; 
             simTimer.Start();
+            //A renderelő időzítő, ami a kígyó mozgását simává teszi
             renderTimer = new DispatcherTimer();
             renderTimer.Interval = TimeSpan.FromMilliseconds(13);
             renderTimer.Tick += RenderTimer_Tick;
             renderTimer.Start();
+            //A játékidő számlálója
+            timeTimer = new DispatcherTimer();
+            timeTimer.Interval = TimeSpan.FromSeconds(1);
+            timeTimer.Tick += TimeTimer_Tick;
+            timeTimer.Start();
+        }
+
+        private void TimeTimer_Tick(object sender, EventArgs e)
+        {
+            timePassed++;
+            txtTime.Text = $"Time: {GetPassedTime()}";
         }
 
         private void SimTimer_Tick(object sender, EventArgs e)
@@ -107,6 +126,13 @@ namespace KP_SnakeProjekt
                 MessageBox.Show("hékabéka");
                 return;
             }
+            if (snakeBodyMap[SnakeHead.PosY, SnakeHead.PosX] == "S")
+            {
+                simTimer.Stop();
+                renderTimer.Stop();
+                MessageBox.Show("hékabéka");
+                return;
+            }
             int almaszam = rnd.Next(1, maxalmaszam);
             if (!ApplesInMap)
                 MapController.SpawnApples(almaszam, this);
@@ -123,6 +149,8 @@ namespace KP_SnakeProjekt
             }
             kamera.ScrollToHorizontalOffset(visualX * tileSize - (kamera.ActualWidth / 2) + tileSize / 2);
             kamera.ScrollToVerticalOffset(visualY * tileSize - (kamera.ActualHeight / 2) + tileSize / 2);
+            txtPos.Text = $"X: {SnakeHead.PosX} Y: {SnakeHead.PosY}";
+            SetBodyPositionOnMap();
         }
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
@@ -131,6 +159,29 @@ namespace KP_SnakeProjekt
 
             ClampVisualPosition();
             RefreshSnakePosition();
+        }
+
+        private string GetPassedTime()
+        {
+            int minutes = timePassed / 60;
+            int seconds = timePassed % 60;
+            return $"{minutes:D2}:{seconds:D2}";
+        }
+
+        private void SetBodyPositionOnMap()
+        {
+            for (int i = 0; i < mapsize; i++)
+            {
+                for(int j = 0; j < mapsize; j++)
+                {
+                    snakeBodyMap[i,j] = ".";
+                }
+            }
+            for (int i = 1; i < snakeBody.Count; i++)
+            {
+                Snake part = snakeBody[i];
+                snakeBodyMap[part.PosY, part.PosX] = "S";
+            }
         }
 
         public void ClampVisualPosition()
@@ -194,9 +245,10 @@ namespace KP_SnakeProjekt
                 }
                 else
                 {
-                    img.Source = bodyStraight;
+                    img.Source = bodyTail;
                     rt.Angle = CalculateBodyRotation(current, lead);
                 }
+
             }
         }
         /// <summary>
@@ -236,7 +288,7 @@ namespace KP_SnakeProjekt
         {
             kamera.ScrollToVerticalOffset(SnakeHead.PosY * tileSize - (kamera.ActualHeight / 2));
             kamera.ScrollToHorizontalOffset(SnakeHead.PosX * tileSize - (kamera.ActualWidth / 2));
-            MessageBox.Show($"{LoggedUser.UserName}");
+            //MessageBox.Show($"{LoggedUser.UserName}");
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

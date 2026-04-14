@@ -47,7 +47,7 @@ namespace KP_SnakeProjekt
                 if (result == MessageBoxResult.Yes)
                 {
                     LoggedUser = null;
-                    txtUsername.Text = "vendég";
+                    txtUsername.Text = "Vendég";
                     txtMaxScore.Text = "";
                 }
             }
@@ -57,22 +57,23 @@ namespace KP_SnakeProjekt
         {
             if (LoggedUser == null)
             {
-                MessageBox.Show("► jelentkezz be a játékhoz!", "Snake");
+                MessageBox.Show("Jelentkezz be a játékhoz!", "Snake");
                 return;
             }
             MainWindow game = new MainWindow();
             game.LoggedUser = LoggedUser;
             game.Show();
+            this.Close();
         }
 
         private void btnSkins_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("► hamarosan!", "Skinek");
+            MessageBox.Show("Hamarosan!", "Skinek");
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("► hamarosan!", "Beállítások");
+            MessageBox.Show("Hamarosan!", "Beállítások");
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

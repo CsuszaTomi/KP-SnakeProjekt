@@ -1,4 +1,6 @@
-﻿using KP_SnakeProjekt.Models;
+﻿using KP_SnakeProjekt.Controllers;
+using KP_SnakeProjekt.Models;
+using KP_SnakeProjekt.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using KP_SnakeProjekt.Controllers;
 
 namespace KP_SnakeProjekt
 {
@@ -29,23 +30,34 @@ namespace KP_SnakeProjekt
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Password;
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            try
             {
-                ShowError("► töltsd ki az összes mezőt!");
-                return;
+                string username = txtUsername.Text.Trim();
+                string password = txtPassword.Password;
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    UIHandler.ShowError("► Töltsd ki az összes mezőt!", txtError);
+                    return;
+                }
+                Users user = DatabaseController.Login(username, password);
+                if (user != null)
+                {
+                    LoggedUser = user;
+                    this.DialogResult = true;
+                    this.Close();
+                }
+                else
+                {
+                    UIHandler.ShowError("► Hibás felhasználónév vagy jelszó!", txtError);
+                }
             }
-            Users user = DatabaseController.Login(username, password);
-            if (user != null)
+            catch (MySql.Data.MySqlClient.MySqlException)
             {
-                LoggedUser = user;
-                this.DialogResult = true;
-                this.Close();
+                UIHandler.ShowError("► Nem sikerült csatlakozni az adatbázishoz!", txtError);
             }
-            else
+            catch (Exception ex)
             {
-                ShowError("► hibás felhasználónév vagy jelszó!");
+                UIHandler.ShowError($"► Hiba történt: {ex.Message}", txtError);
             }
         }
 
@@ -53,12 +65,6 @@ namespace KP_SnakeProjekt
         {
             Register registerWindow = new Register();
             registerWindow.ShowDialog();
-        }
-
-        private void ShowError(string msg)
-        {
-            txtError.Text = msg;
-            txtError.Visibility = Visibility.Visible;
         }
     }
 }

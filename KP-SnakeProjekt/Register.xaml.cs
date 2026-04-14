@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using KP_SnakeProjekt.View;
 
 namespace KP_SnakeProjekt
 {
@@ -29,47 +30,52 @@ namespace KP_SnakeProjekt
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Password;
-            string passwordConfirm = txtPasswordConfirm.Password;
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordConfirm))
+            try
             {
-                ShowError("► töltsd ki az összes mezőt!");
-                return;
-            }
-            if (password != passwordConfirm)
+                string username = txtUsername.Text.Trim();
+                string password = txtPassword.Password;
+                string passwordConfirm = txtPasswordConfirm.Password;
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordConfirm))
+                {
+                    UIHandler.ShowError("► Töltsd ki az összes mezőt!", txtError);
+                    return;
+                }
+                if (password != passwordConfirm)
+                {
+                    UIHandler.ShowError("► A két jelszó nem egyezik!", txtError);
+                    return;
+                }
+                if (username.Length < 3)
+                {
+                    UIHandler.ShowError("► A felhasználónév legalább 3 karakter legyen!", txtError);
+                    return;
+                }
+                if (password.Length < 6)
+                {
+                    UIHandler.ShowError("► A jelszó legalább 6 karakter legyen!", txtError);
+                    return;
+                }
+                if (!DatabaseController.Register(username, password))
+                {
+                    UIHandler.ShowError("► A felhasználónév már foglalt!", txtError);
+                    return;
+                }
+                //MessageBox.Show($"► sikeres regisztráció, {username}!\nMost már bejelentkezhetsz.", "Siker", MessageBoxButton.OK);
+                this.Close();
+            }  
+            catch (MySql.Data.MySqlClient.MySqlException)
             {
-                ShowError("► a két jelszó nem egyezik!");
-                return;
+                UIHandler.ShowError("► Nem sikerült csatlakozni az adatbázishoz!", txtError);
             }
-            if (username.Length < 3)
+            catch (Exception ex)
             {
-                ShowError("► a felhasználónév legalább 3 karakter legyen!");
-                return;
+                UIHandler.ShowError($"► Hiba történt: {ex.Message}", txtError);
             }
-            if (password.Length < 6)
-            {
-                ShowError("► a jelszó legalább 6 karakter legyen!");
-                return;
-            }
-            if (!DatabaseController.Register(username, password))
-            {
-                ShowError("► A felhasználónév már foglalt!");
-                return;
-            }
-            //MessageBox.Show($"► sikeres regisztráció, {username}!\nMost már bejelentkezhetsz.", "Siker", MessageBoxButton.OK);
-            this.Close();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void ShowError(string msg)
-        {
-            txtError.Text = msg;
-            txtError.Visibility = Visibility.Visible;
         }
     }
 }
