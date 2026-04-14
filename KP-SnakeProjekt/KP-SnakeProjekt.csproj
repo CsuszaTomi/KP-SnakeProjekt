@@ -20,8 +20,32 @@
     <None Remove="img\apple.png" />
     <None Remove="img\kep57.png" />
     <None Remove="img\Skins\snakebody-v2.png" />
+    <None Remove="img\Skins\snakebodyBl.png" />
+    <None Remove="img\Skins\snakebodyPi.png" />
+    <None Remove="img\Skins\snakebodyPu.png" />
+    <None Remove="img\Skins\snakebodyRed.png" />
+    <None Remove="img\Skins\snakebodyYe.png" />
+    <None Remove="img\Skins\snakebodyYG.png" />
+    <None Remove="img\Skins\snakecornerBl.png" />
+    <None Remove="img\Skins\snakecornerPi.png" />
+    <None Remove="img\Skins\snakecornerPu.png" />
+    <None Remove="img\Skins\snakecornerRed.png" />
+    <None Remove="img\Skins\snakecornerYe.png" />
+    <None Remove="img\Skins\snakecornerYG.png" />
     <None Remove="img\Skins\snakehead-v2.png" />
+    <None Remove="img\Skins\snakeheadBl.png" />
+    <None Remove="img\Skins\snakeheadPi.png" />
+    <None Remove="img\Skins\snakeheadPu.png" />
+    <None Remove="img\Skins\snakeheadRed.png" />
+    <None Remove="img\Skins\snakeheadYe.png" />
+    <None Remove="img\Skins\snakeheadYG.png" />
     <None Remove="img\Skins\snaketail-v2.png" />
+    <None Remove="img\Skins\snaketailBl.png" />
+    <None Remove="img\Skins\snaketailPi.png" />
+    <None Remove="img\Skins\snaketailPu.png" />
+    <None Remove="img\Skins\snaketailRed.png" />
+    <None Remove="img\Skins\snaketailYe.png" />
+    <None Remove="img\Skins\snaketailYG.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +56,33 @@
     <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\kep57.png" />
     <Resource Include="img\Skins\snakebody.png" />
+    <Resource Include="img\Skins\snakebodyBl.png" />
+    <Resource Include="img\Skins\snakebodyPi.png" />
+    <Resource Include="img\Skins\snakebodyPu.png" />
+    <Resource Include="img\Skins\snakebodyRed.png" />
+    <Resource Include="img\Skins\snakebodyYe.png" />
+    <Resource Include="img\Skins\snakebodyYG.png" />
     <Resource Include="img\Skins\snakecorner.png" />
+    <Resource Include="img\Skins\snakecornerBl.png" />
+    <Resource Include="img\Skins\snakecornerPi.png" />
+    <Resource Include="img\Skins\snakecornerPu.png" />
+    <Resource Include="img\Skins\snakecornerRed.png" />
+    <Resource Include="img\Skins\snakecornerYe.png" />
+    <Resource Include="img\Skins\snakecornerYG.png" />
     <Resource Include="img\Skins\snakehead.png" />
+    <Resource Include="img\Skins\snakeheadBl.png" />
+    <Resource Include="img\Skins\snakeheadPi.png" />
+    <Resource Include="img\Skins\snakeheadPu.png" />
+    <Resource Include="img\Skins\snakeheadRed.png" />
+    <Resource Include="img\Skins\snakeheadYe.png" />
+    <Resource Include="img\Skins\snakeheadYG.png" />
     <Resource Include="img\Skins\snaketail.png" />
+    <Resource Include="img\Skins\snaketailBl.png" />
+    <Resource Include="img\Skins\snaketailPi.png" />
+    <Resource Include="img\Skins\snaketailPu.png" />
+    <Resource Include="img\Skins\snaketailRed.png" />
+    <Resource Include="img\Skins\snaketailYe.png" />
+    <Resource Include="img\Skins\snaketailYG.png" />
   </ItemGroup>
 
 </Project>
