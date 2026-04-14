@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Ápr 14. 21:39
+-- Létrehozás ideje: 2026. Ápr 14. 22:25
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -31,15 +31,18 @@ USE `snakeadatb`;
 
 CREATE TABLE `scores` (
   `UserID` int(8) NOT NULL,
-  `Score` int(8) NOT NULL
+  `Score` int(8) NOT NULL,
+  `GameID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `scores`
 --
 
-INSERT INTO `scores` (`UserID`, `Score`) VALUES
-(1, 3);
+INSERT INTO `scores` (`UserID`, `Score`, `GameID`) VALUES
+(1, 3, 1),
+(1, 0, 2),
+(1, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -67,6 +70,12 @@ INSERT INTO `users` (`ID`, `Name`, `Password`) VALUES
 --
 
 --
+-- A tábla indexei `scores`
+--
+ALTER TABLE `scores`
+  ADD PRIMARY KEY (`GameID`);
+
+--
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
@@ -75,6 +84,12 @@ ALTER TABLE `users`
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
 --
+
+--
+-- AUTO_INCREMENT a táblához `scores`
+--
+ALTER TABLE `scores`
+  MODIFY `GameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `users`
