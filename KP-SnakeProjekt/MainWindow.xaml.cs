@@ -50,6 +50,8 @@ namespace KP_SnakeProjekt
         public Users LoggedUser;
         public string[,] snakeBodyMap;
         public int timePassed = 0;
+        int countdownValue = 2;
+        public DispatcherTimer countdownTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -80,21 +82,40 @@ namespace KP_SnakeProjekt
             visualX = SnakeHead.PosX;
             visualY = SnakeHead.PosY;
             RefreshSnakePosition();
+            countdownTimer = new DispatcherTimer();
+            countdownTimer.Interval = TimeSpan.FromSeconds(1);
+            countdownTimer.Tick += CountdownTimer_Tick;
+            countdownTimer.Start();
             //A szimulációs időzítő, ami a kígyó logikáját futtatja, és a játék fő ciklusát jelenti
             simTimer = new DispatcherTimer();
             simTimer.Interval = TimeSpan.FromMilliseconds(500);
-            simTimer.Tick += SimTimer_Tick; 
-            simTimer.Start();
+            simTimer.Tick += SimTimer_Tick;
             //A renderelő időzítő, ami a kígyó mozgását simává teszi
             renderTimer = new DispatcherTimer();
             renderTimer.Interval = TimeSpan.FromMilliseconds(13);
             renderTimer.Tick += RenderTimer_Tick;
-            renderTimer.Start();
             //A játékidő számlálója
             timeTimer = new DispatcherTimer();
             timeTimer.Interval = TimeSpan.FromSeconds(1);
             timeTimer.Tick += TimeTimer_Tick;
-            timeTimer.Start();
+
+        }
+
+        private void CountdownTimer_Tick(object sender, EventArgs e)
+        {
+            if (countdownValue > 0)
+            {
+                txtCountdown.Text = countdownValue.ToString();
+                countdownValue--;
+            }
+            else
+            {
+                countdownTimer.Stop();
+                simTimer.Start();
+                renderTimer.Start();
+                timeTimer.Start();
+                GameStartOverlay.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void TimeTimer_Tick(object sender, EventArgs e)
