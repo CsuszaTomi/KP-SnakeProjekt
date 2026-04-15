@@ -21,7 +21,6 @@
     <None Remove="img\ground-teszt.png" />
     <None Remove="img\ground.png" />
     <None Remove="img\kep57.png" />
-    <None Remove="img\Skins\easteregghead.png" />
     <None Remove="img\Skins\snakebody-v2.png" />
     <None Remove="img\Skins\snakebodyBl.png" />
     <None Remove="img\Skins\snakebodyPi.png" />
@@ -59,7 +58,7 @@
     <Resource Include="img\Consumables\appleV2.png" />
     <Resource Include="img\ground.png" />
     <Resource Include="img\kep57.png" />
-    <Resource Include="img\Skins\easteregghead.png" />
+    <Resource Include="img\Skins\snakeheadRBW.png" />
     <Resource Include="img\Skins\snakebody.png" />
     <Resource Include="img\Skins\snakebodyBl.png" />
     <Resource Include="img\Skins\snakebodyPi.png" />

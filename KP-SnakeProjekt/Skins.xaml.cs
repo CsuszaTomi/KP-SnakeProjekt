@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using KP_SnakeProjekt.Models;
+using KP_SnakeProjekt.Controllers;
 
 namespace KP_SnakeProjekt
 {
@@ -21,8 +23,7 @@ namespace KP_SnakeProjekt
     {
         public static string SelectedSkin = "default";
         private string tempSelected = "default";
-        // A skin nevének és a hozzá tartozó Border elemnek a tárolására szolgáló szótár
-        private Dictionary<string, Border> skinBorders;
+        public Users loggedUser;
         public Skins()
         {
             InitializeComponent();
@@ -30,42 +31,48 @@ namespace KP_SnakeProjekt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            skinBorders = new Dictionary<string, Border>
-            {
-                { "default", borderDefault },
-                { "Bl",  borderBl  },
-                { "Pi",  borderPi  },
-                { "Pu",  borderPu  },
-                { "Red", borderRed },
-                { "Ye",  borderYe  },
-                { "YG",  borderYG  }
-            };
             tempSelected = SelectedSkin;
             HighlightSelected(tempSelected);
         }
 
         private void SkinButton_Click(object sender, RoutedEventArgs e)
         {
-            string tag = (sender as Button)?.Tag?.ToString();
+            string tag = (sender as Button).Tag.ToString();//A kiválasztott gomb Tag értékének lekérése
             if (tag == null) 
                 return;
-            tempSelected = tag;
-            HighlightSelected(tag);
+            if(tag == "RBW")
+            {
+                if(loggedUser != null){
+                    if (DatabaseController.GetMaxScore(loggedUser.Id) < 10)
+                    {
+                        MessageBox.Show("A szivárvány skinhez legalább 10 pont szükséges!", "Skin zárolva", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Jelentkezz be a fiókodba, hogy láthasd a pontjaidat!", "Skin zárolva", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+            tempSelected = tag;//A kiválasztott skin ideiglenes tárolása
+            HighlightSelected(tag);//A kiválasztott skin kiemelése a UI-ban
         }
 
         private void HighlightSelected(string tag)
         {
-            foreach (var kv in skinBorders)
+            // Végigmegy az összes Border-en a skinPanel-en belül
+            foreach (var border in skinPanel.Children.OfType<Button>().Select(b => b.Content as Border).Where(b => b != null))
             {
-                kv.Value.BorderBrush = kv.Key == tag ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4ade80"))
-                                                     : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1f2937"));
+                string borderTag = (border.Parent as Button)?.Tag?.ToString();
+                border.BorderBrush = borderTag == tag ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4ade80"))
+                                                      : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1f2937"));
             }
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             SelectedSkin = tempSelected;
-            //MessageBox.Show($"Skin elmentve: {SelectedSkin}", "Skinek");
             Close();
         }
 

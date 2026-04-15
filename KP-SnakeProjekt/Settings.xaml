@@ -51,7 +51,7 @@
                                    FontSize="11" FontWeight="Bold"
                                    FontFamily="Consolas" Margin="0,0,0,16"/>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel x:Name="sizePanel" Orientation="Horizontal" HorizontalAlignment="Center">
 
                             <!-- 10x10 -->
                             <Button x:Name="btn10" Tag="10"
