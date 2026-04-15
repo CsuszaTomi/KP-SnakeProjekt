@@ -201,10 +201,10 @@
                                     CornerRadius="10" Background="#161b22"
                                     BorderBrush="#1f2937" BorderThickness="2">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Image Source="pack://application:,,,/img/Skins/snakebodyYG.png"
+                                <Image Source="pack://application:,,,/img/Skins/snakebodyRBW.png"
                                            Width="48" Height="48" Margin="0,0,0,0"
                                            RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                                <Image Source="/img/Skins/easteregghead.png"
+                                <Image Source="/img/Skins/snakeheadRBW.png"
                                            Width="48" Height="48" Margin="0,0,0,12"
                                            RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                                 <TextBlock Text="SZIVÁRVÁNY" Foreground="#4ade80"
