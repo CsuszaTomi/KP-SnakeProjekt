@@ -1,4 +1,5 @@
-﻿using KP_SnakeProjekt.Models;
+﻿using KP_SnakeProjekt.Controllers;
+using KP_SnakeProjekt.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,8 @@ namespace KP_SnakeProjekt
                 {
                     LoggedUser = loginWindow.LoggedUser;
                     txtUsername.Text = LoggedUser.UserName;
+                    int maxScore = DatabaseController.GetMaxScore(LoggedUser.Id);
+                    txtMaxScore.Text = $"Rekord: {maxScore} pont";
                 }
             }
             else
@@ -59,6 +62,8 @@ namespace KP_SnakeProjekt
             if(LoggedUser != null)
             {
                 txtUsername.Text = LoggedUser.UserName;
+                int maxScore = DatabaseController.GetMaxScore(LoggedUser.Id);
+                txtMaxScore.Text = $"Rekord: {maxScore} pont";
             }
         }
 
@@ -78,6 +83,7 @@ namespace KP_SnakeProjekt
         private void btnSkins_Click(object sender, RoutedEventArgs e)
         {
             Skins skinswindow = new Skins();
+            skinswindow.loggedUser = LoggedUser;
             skinswindow.Show();
         }
 

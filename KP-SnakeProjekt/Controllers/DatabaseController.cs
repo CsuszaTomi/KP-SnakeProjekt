@@ -93,5 +93,26 @@ namespace KP_SnakeProjekt.Controllers
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+
+        public static int GetMaxScore(int userId)
+        {
+            try
+            {
+                MySqlConnection connection = new MySqlConnection();
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                string sql = "SELECT MAX(Score) FROM snakeadatb.scores WHERE UserID=@userId";
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                cmd.Parameters.AddWithValue("@userId", userId);
+                object result = cmd.ExecuteScalar();
+                connection.Close();
+                return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+            }
+            catch(Exception ex)
+            {     
+                MessageBox.Show("Hiba a pontszám lekérésekor: " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
+        }
     }
 }

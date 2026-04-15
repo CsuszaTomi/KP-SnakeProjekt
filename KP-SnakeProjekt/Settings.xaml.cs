@@ -9,10 +9,8 @@ namespace KP_SnakeProjekt
     /// </summary>
     public partial class Settings : Window
     {
-        public static int SelectedMapSize = 20; // alapértelmezett
+        public static int SelectedMapSize = 20;
         private int tempSize = 20;
-
-        private Dictionary<int, Border> sizeBorders;
 
         public Settings()
         {
@@ -21,37 +19,31 @@ namespace KP_SnakeProjekt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            sizeBorders = new Dictionary<int, Border>
-            {
-                { 10, border10 },
-                { 15, border15 },
-                { 20, border20 }
-            };
-
             tempSize = SelectedMapSize;
             HighlightSelected(tempSize);
         }
 
         private void MapSizeButton_Click(object sender, RoutedEventArgs e)
         {
-            int tag = int.Parse((sender as Button)?.Tag?.ToString());
+            int tag = int.Parse((sender as Button).Tag.ToString());
             tempSize = tag;
             HighlightSelected(tag);
         }
 
         private void HighlightSelected(int size)
         {
-            foreach (var kv in sizeBorders)
+            foreach (var border in sizePanel.Children.OfType<Button>().Select(button => button.Content as Border).Where(button => button != null))
             {
-                kv.Value.BorderBrush = kv.Key == size ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a78bfa"))
-                                                      : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1f2937"));
+                int borderTag = int.Parse((border.Parent as Button)?.Tag?.ToString() ?? "0");
+                border.BorderBrush = borderTag == size
+                    ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a78bfa"))
+                    : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1f2937"));
             }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SelectedMapSize = tempSize;
-            //MessageBox.Show($"Beállítások elmentve!", "Beállítások");
             Close();
         }
 
