@@ -69,11 +69,6 @@ namespace KP_SnakeProjekt
 
         private void btnGame_Click(object sender, RoutedEventArgs e)
         {
-            //if (LoggedUser == null)
-            //{
-            //    MessageBox.Show("Jelentkezz be a játékhoz!", "Snake");
-            //    return;
-            //}
             MainWindow game = new MainWindow();
             game.LoggedUser = LoggedUser;
             game.Show();

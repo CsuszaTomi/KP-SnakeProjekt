@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using KP_SnakeProjekt.Controllers;
 using KP_SnakeProjekt.Models;
 using PSZK_MarsRoverProject.Controllers;
+using KP_SnakeProjekt.View;
 
 namespace KP_SnakeProjekt
 {
@@ -99,7 +100,7 @@ namespace KP_SnakeProjekt
         private void TimeTimer_Tick(object sender, EventArgs e)
         {
             timePassed++;
-            txtTime.Text = $"Time: {GetPassedTime()}";
+            txtTime.Text = $"{GetPassedTime()}";
         }
 
         private int GetSnakeStartDisplacement()
@@ -262,7 +263,7 @@ namespace KP_SnakeProjekt
                     if (InX + OutX != 0 || InY + OutY != 0)
                     {
                         img.Source = bodyCorner;
-                        rt.Angle = CalculateCornerRotation(InX, InY, OutX, OutY);
+                        rt.Angle = SnakeView.CalculateCornerRotation(InX, InY, OutX, OutY);
                     }
                     else
                     {
@@ -273,42 +274,10 @@ namespace KP_SnakeProjekt
                 else
                 {
                     img.Source = bodyTail;
-                    rt.Angle = CalculateBodyRotation(current, lead);
+                    rt.Angle = SnakeView.CalculateBodyRotation(current, lead);
                 }
 
             }
-        }
-        /// <summary>
-        /// A testresz forgatását számítja ki 
-        /// </summary>  
-        /// <param name="current">A jelenlegi testresz</param>
-        /// <param name="lead">A vezető testresz</param>
-        /// <returns>A forgatási szög</returns>
-        private double CalculateBodyRotation(Snake current, Snake lead)
-        {
-            if (lead.PosX > current.PosX) return 270; // Jobbra
-            if (lead.PosX < current.PosX) return 90;  // Balra
-            if (lead.PosY > current.PosY) return 0;   // Le
-            if (lead.PosY < current.PosY) return 180; // Fel
-            return 0;
-        }
-
-        /// <summary>
-        /// A sarok forgatását számítja ki az irányvektorok alapján
-        /// </summary>
-        /// <param name="InX">A bejövő delta x</param>
-        /// <param name="InY">A bejövő delta y</param>
-        /// <param name="OutX">A kimenő delta x</param>
-        /// <param name="OutY">A kimenő delta y</param>
-        /// <returns>A forgatási szög</returns>
-        private double CalculateCornerRotation(int InX, int InY, int OutX, int OutY)
-        {
-            // Irányvektorok alapján meghatározzuk a sarok forgatását
-            if ((InY == -1 && OutX == 1) || (InX == 1 && OutY == -1)) return 0;   // Bal-Felső sarok
-            if ((InX == 1 && OutY == 1) || (InY == 1 && OutX == 1)) return 90;  // Bal-Alsó sarok
-            if ((InY == 1 && OutX == -1) || (InX == -1 && OutY == 1)) return 180; // Jobb-Alsó sarok
-            if ((InX == -1 && OutY == -1) || (InY == -1 && OutX == -1)) return 270; // Jobb-Felső sarok
-            return 0;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
