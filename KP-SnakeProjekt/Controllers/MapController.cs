@@ -56,6 +56,7 @@ namespace PSZK_MarsRoverProject.Controllers
                 Height = pixelHeight,
                 Source = bmp,
                 SnapsToDevicePixels = true,
+                Tag = "Background"
             };
             mw.jatekter.Children.Clear();
             Canvas.SetTop(hattekKep, 0);
@@ -121,6 +122,7 @@ namespace PSZK_MarsRoverProject.Controllers
             {
                 if (elem is Image img)
                 {
+                    if (img.Tag?.ToString() == "Background") continue;
                     double left = Canvas.GetLeft(img);
                     double top = Canvas.GetTop(img);
                     if ((int)(left / mw.tileSize) == col && (int)(top / mw.tileSize) == row)
