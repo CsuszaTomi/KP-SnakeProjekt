@@ -65,6 +65,11 @@
                 Margin="0,0,0,16" Background="#161b22" Foreground="#4ade80"
                 FontSize="16" BorderThickness="1" BorderBrush="#4ade80"
                 Cursor="Hand" FontFamily="Consolas" Click="btnSkins_Click"/>
+            <!-- Scoreboard gomb -->
+            <Button x:Name="btnScoreboard" Content="  RANGLISTA" Height="52"
+                Margin="0,0,0,16" Background="#161b22" Foreground="#fbbf24"
+                FontSize="16" BorderThickness="1" BorderBrush="#fbbf24"
+                Cursor="Hand" FontFamily="Consolas" Click="btnBoard_Click"/>
             <!-- Beállítások gomb -->
             <Button x:Name="btnSettings" Content="BEÁLLÍTÁSOK" Height="52"
                 Margin="0,0,0,16" Background="#161b22" Foreground="#a78bfa"

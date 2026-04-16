@@ -82,6 +82,12 @@ namespace KP_SnakeProjekt
             skinswindow.Show();
         }
 
+        private void btnBoard_Click(object sender, RoutedEventArgs e)
+        {
+            Scoreboard board = new Scoreboard();
+            board.ShowDialog();
+        }
+
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             Settings settingsWindow = new Settings();

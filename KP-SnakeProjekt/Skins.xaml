@@ -37,10 +37,6 @@
                         <DropShadowEffect Color="#4ade80" BlurRadius="24" ShadowDepth="0" Opacity="0.7"/>
                     </TextBlock.Effect>
                 </TextBlock>
-                <TextBlock Text="Válassz egy skint a kígyódhoz"
-                               Foreground="#4b5563" FontSize="13"
-                               FontFamily="Consolas" HorizontalAlignment="Center"
-                               Margin="0,8,0,0"/>
             </StackPanel>
 
             <!-- SKIN KÁRTYÁK -->

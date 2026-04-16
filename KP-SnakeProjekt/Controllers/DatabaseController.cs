@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +76,22 @@ namespace KP_SnakeProjekt.Controllers
                 MessageBox.Show("Hiba a felhasználó regisztrálásakor: " + ex.Message);
                 return false;
             }
+        }
+
+        public static List<Score> GetTopScores()
+        {
+            List<Users> users = GetAllUsers();
+            List<Score> scores = new List<Score>();
+            foreach (Users user in users)
+            {
+                int maxScore = GetMaxScore(user.Id);
+                Score score = new Score();
+                score.Name = user.UserName;
+                score.ScorePoint = maxScore;
+                scores.Add(score);
+            }
+            scores.Sort((a, b) => b.ScorePoint.CompareTo(a.ScorePoint));
+            return scores;
         }
 
         public static List<Users> GetAllUsers()
