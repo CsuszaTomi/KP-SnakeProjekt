@@ -238,13 +238,6 @@
         <!--Game start widget-->
         <Grid x:Name="GameStartOverlay" Grid.RowSpan="2" Background="#CC0d1117" Visibility="Visible" Panel.ZIndex="100">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="KÉSZEN ÁLLSZ?" Foreground="#4ade80" FontSize="20"
-                   FontWeight="Bold" FontFamily="Consolas"
-                   HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="#4ade80" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
-                    </TextBlock.Effect>
-                </TextBlock>
                 <TextBlock x:Name="txtCountdown" Text="3" Foreground="#4ade80"
                    FontSize="120" FontWeight="Black" FontFamily="Consolas"
                    HorizontalAlignment="Center">
