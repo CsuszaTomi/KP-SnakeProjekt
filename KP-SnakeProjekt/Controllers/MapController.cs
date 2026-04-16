@@ -134,7 +134,7 @@ namespace PSZK_MarsRoverProject.Controllers
                 if (elem is Image img)
                 {
                     // Az apple képeknek nincs "Background" tagjük, így ez a feltétel biztosítja, hogy csak az alma képeket vizsgáljuk
-                    if (img.Tag.ToString() == "Background") continue;
+                    if (img.Tag?.ToString() == "Background") continue;
                     double left = Canvas.GetLeft(img);
                     double top = Canvas.GetTop(img);
                     if ((int)(left / mw.tileSize) == col && (int)(top / mw.tileSize) == row)
