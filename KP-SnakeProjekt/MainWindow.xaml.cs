@@ -101,6 +101,11 @@ namespace KP_SnakeProjekt
 
         }
 
+        /// <summary>
+        /// A játék indítása előtti visszaszámlálást kezelő időzítő eseménykezelője, ami minden másodpercben csökkenti a visszaszámláló értékét, és amikor eléri a 0-t, elindítja a szimulációs, renderelő és idő számláló időzítőket, valamint elrejti a visszaszámláló overlayt. Ez lehetőséget ad a játékosnak, hogy felkészüljön a játék kezdetére.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CountdownTimer_Tick(object sender, EventArgs e)
         {
             if (countdownValue > 0)
@@ -217,6 +222,9 @@ namespace KP_SnakeProjekt
             return $"{minutes:D2}:{seconds:D2}";
         }
 
+        /// <summary>
+        /// A kígyó testének pozícióját frissítő metódus, ami először kitölti a snakeBodyMap tömböt pontokkal, majd a kígyó minden testrészének pozícióját "S"-sel jelöli a tömbben. Ez a tömb szolgál a kígyó testének ütközésdetektálásához, mivel ha a fej pozíciója egy "S"-re lép, akkor az játék véget ér. Ez a megközelítés lehetővé teszi az egyszerű és gyors ütközésdetektálást anélkül, hogy minden testrészt külön-külön kellene ellenőrizni.
+        /// </summary>
         private void SetBodyPositionOnMap()
         {
             for (int i = 0; i < mapsize; i++)

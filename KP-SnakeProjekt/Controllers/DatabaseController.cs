@@ -17,6 +17,12 @@ namespace KP_SnakeProjekt.Controllers
         {
             return new MySqlConnection(connectionString);
         }
+        /// <summary>
+        /// A bejelentkezést végző metódus, amely a snakeadatb.users táblából lekéri a megadott felhasználónévhez és jelszóhoz tartozó rekordot. Ha talál ilyen rekordot, akkor létrehoz egy Users objektumot a rekord adataival, majd visszaadja azt. Ha nem talál ilyen rekordot, akkor null értéket ad vissza. Ha a lekérdezés során hiba történik, akkor egy hibaüzenetet jelenít meg és szintén null értéket ad vissza.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         static public Users Login(string username, string password)
         {
             try
@@ -47,6 +53,12 @@ namespace KP_SnakeProjekt.Controllers
                 return null;
             }
         }
+        /// <summary>
+        /// A regisztrációt végző metódus, amely először ellenőrzi, hogy a megadott felhasználónév már létezik-e a snakeadatb.users táblában. Ha igen, akkor false értéket ad vissza, jelezve, hogy a regisztráció sikertelen volt. Ha nem létezik, akkor beszúrja a megadott felhasználónevet és jelszót a táblába, majd true értéket ad vissza, jelezve, hogy a regisztráció sikeres volt.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns>Sikeres volt-e a regisztráció</returns>
         static public bool Register(string username, string password)
         {
             try
@@ -78,6 +90,10 @@ namespace KP_SnakeProjekt.Controllers
             }
         }
 
+        /// <summary>
+        /// A felhasználók legmagasabb pontszámait lekérdező metódus, majd ezeket pontszám szerint csökkenő sorrendbe rendezi és visszaadja egy listában.
+        /// </summary>
+        /// <returns>A sorba rendezett pontok listáját</returns>
         public static List<Score> GetTopScores()
         {
             List<Users> users = GetAllUsers();
@@ -94,6 +110,10 @@ namespace KP_SnakeProjekt.Controllers
             return scores;
         }
 
+        /// <summary>
+        /// A felhasználók lekérdező metódusa, amely a snakeadatb.users táblából lekéri az összes felhasználó adatait, majd ezeket egy listában visszaadja.
+        /// </summary>
+        /// <returns>A felhasználók listáját</returns>
         public static List<Users> GetAllUsers()
         {
             try
@@ -122,6 +142,11 @@ namespace KP_SnakeProjekt.Controllers
             }
         }
 
+        /// <summary>
+        /// A pontszám mentését végző metódus, amely a snakeadatb.scores táblába beszúrja a megadott felhasználó azonosítóját és a pontszámát.
+        /// </summary>
+        /// <param name="userId">A felhasználó id-je</param>
+        /// <param name="score">A pontszám</param>
         public static void AddScore(int userId, int score)
         {
             try
@@ -142,6 +167,11 @@ namespace KP_SnakeProjekt.Controllers
             }
         }
 
+        /// <summary>
+        /// A megadott felhasználó legmagasabb pontszámát lekérdező metódus, amely a snakeadatb.scores táblából lekéri a megadott felhasználóhoz tartozó összes pontszámot, majd ezek közül a legmagasabbat visszaadja. Ha a felhasználónak még nincs pontszáma, akkor 0-t ad vissza.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A max pontszámot</returns>
         public static int GetMaxScore(int userId)
         {
             try
