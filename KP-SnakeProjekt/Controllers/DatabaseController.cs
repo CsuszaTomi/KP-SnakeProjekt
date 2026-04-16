@@ -12,7 +12,7 @@ namespace KP_SnakeProjekt.Controllers
 {
     internal class DatabaseController
     {
-        private static string connectionString = "Server=127.0.0.1;Database=snakeadatb;Uid=root;Pwd=;";
+        private static string connectionString = "Server=localhost;Database=snakeadatb;Uid=root;Pwd=;";
         private static MySqlConnection GetConnection()
         {
             return new MySqlConnection(connectionString);
@@ -106,6 +106,7 @@ namespace KP_SnakeProjekt.Controllers
                 score.ScorePoint = maxScore;
                 scores.Add(score);
             }
+            // A pontszámok csökkenő sorrendbe rendezése
             scores.Sort((a, b) => b.ScorePoint.CompareTo(a.ScorePoint));
             return scores;
         }

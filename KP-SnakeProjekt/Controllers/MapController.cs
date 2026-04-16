@@ -90,6 +90,11 @@ namespace PSZK_MarsRoverProject.Controllers
                 default: return mw.groundImage1;
             }
         }
+        /// <summary>
+        /// Az alma megjelenítését végző metódus, amely a megadott alma darabszám alapján véletlenszerűen helyezi el az almákat a térképen. A metódus először ellenőrzi, hogy a véletlenszerűen kiválasztott pozíció üres-e (azaz "."), majd ha igen, akkor "A"-ra változtatja a térképet, létrehoz egy Image elemet az alma képével, és elhelyezi azt a játéktéren a megfelelő koordinátákon. A metódus végén beállítja az ApplesInMap flag-et true-ra, jelezve, hogy almák vannak a térképen.
+        /// </summary>
+        /// <param name="applescount"></param>
+        /// <param name="mw"></param>
 
         public static void SpawnApples(int applescount, MainWindow mw)
         {
@@ -115,6 +120,12 @@ namespace PSZK_MarsRoverProject.Controllers
             mw.ApplesInMap = true;
         }
 
+        /// <summary>
+        /// Az alma eltávolítását végző metódus, amely a megadott sor és oszlop alapján frissíti a térképet, majd megkeresi és eltávolítja a megfelelő Image elemet a játéktérről. Fontos megjegyezni, hogy az alma képeknek nincs "Background" tagjük, így ez a feltétel biztosítja, hogy csak az alma képeket vizsgáljuk, és ne távolítsuk el véletlenül a háttérképet vagy a kígyó fejét/testét. A metódus végén frissíti a térképet és eltávolítja az alma képét a játéktérről.
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="mw"></param>
         public static void RemoveApple(int row, int col, MainWindow mw)
         {
             mw.map[row, col] = ".";
@@ -122,7 +133,8 @@ namespace PSZK_MarsRoverProject.Controllers
             {
                 if (elem is Image img)
                 {
-                    if (img.Tag?.ToString() == "Background") continue;
+                    // Az apple képeknek nincs "Background" tagjük, így ez a feltétel biztosítja, hogy csak az alma képeket vizsgáljuk
+                    if (img.Tag.ToString() == "Background") continue;
                     double left = Canvas.GetLeft(img);
                     double top = Canvas.GetTop(img);
                     if ((int)(left / mw.tileSize) == col && (int)(top / mw.tileSize) == row)
